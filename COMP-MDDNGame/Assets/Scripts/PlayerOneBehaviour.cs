@@ -12,6 +12,7 @@ public class PlayerOneBehaviour : MonoBehaviour {
 	private bool grounded = true;
 	private Rigidbody2D rb2d;
 
+
 	// Use this for initialization
 	void Start () {
 		rb2d = GetComponent<Rigidbody2D> ();
@@ -60,13 +61,18 @@ public class PlayerOneBehaviour : MonoBehaviour {
 		if (onRightSide == true) {
 			if (position.x < enemyScript.transform.position.x) {
 				Flip ();
-
 			}
 		} else {
 			if (position.x >= enemyScript.transform.position.x) {
 				Flip ();
 			}
 
+		}
+		//Melee attack
+		if(Input.GetKeyDown(KeyCode.RightControl)){
+			Collider2D[] hitObjects = Physics2D.OverlapCircleAll(transform.position, 1.0f);
+			//hitObjects[0].SendMessage("TakeDamage", 1, SendMessageOptions.DontRequireReceiver);	//change to purely take damage as 1 hit kill
+		Debug.Log("Hit" + hitObjects[0].name);
 		}
 	}
 
