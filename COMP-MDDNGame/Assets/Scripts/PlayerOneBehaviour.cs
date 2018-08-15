@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerOneBehaviour : MonoBehaviour {
-
+	public GameObject enemy;
+	private PlayerTwoBehaviour enemyScript;
 	public float jump;
 	public float speed;
 	private float moveVelocity;
@@ -13,6 +14,7 @@ public class PlayerOneBehaviour : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		rb2d = GetComponent<Rigidbody2D> ();
+		enemyScript = enemy.GetComponent<PlayerTwoBehaviour> ();
 	}
 
 	void FixedUpdate(){
