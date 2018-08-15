@@ -7,6 +7,7 @@ public class PlayerOneBehaviour : MonoBehaviour {
 	private PlayerTwoBehaviour enemyScript;
 	public float jump;
 	public float speed;
+	private bool onRightSide = true;
 	private float moveVelocity;
 	private bool grounded = true;
 	private Rigidbody2D rb2d;
@@ -43,8 +44,8 @@ public class PlayerOneBehaviour : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		//jump
 
+		//jump
 		if (Input.GetKeyDown (KeyCode.UpArrow)){
 			if (grounded) {
 				rb2d.velocity = new Vector2 (
@@ -52,7 +53,21 @@ public class PlayerOneBehaviour : MonoBehaviour {
 			}
 		}
 
+		//check if players have passed each other
+		Vector3 position = transform.position;
 
+
+		if (onRightSide == true) {
+			if (position.x < enemyScript.transform.position.x) {
+				Flip ();
+
+			}
+		} else {
+			if (position.x >= enemyScript.transform.position.x) {
+				Flip ();
+			}
+
+		}
 	}
 
 	void OnTriggerEnter2D(){
@@ -60,5 +75,14 @@ public class PlayerOneBehaviour : MonoBehaviour {
 	}
 	void OnTriggerExit2D(){
 		grounded = false;
+	}
+
+	void Flip(){
+		//flip both charcters
+		transform.Rotate(new Vector3(0,180,0));
+		enemyScript.transform.Rotate(new Vector3(0,180,0));
+
+		onRightSide = !onRightSide;
+
 	}
 }

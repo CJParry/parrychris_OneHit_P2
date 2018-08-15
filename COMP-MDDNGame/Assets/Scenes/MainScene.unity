@@ -246,9 +246,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4081f1b24ae449289012ac26f9caa38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemy: {fileID: 1614630515}
   jump: 8
   speed: 3
-  moveVelocity: 10
 --- !u!61 &1053227048
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -534,7 +534,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jump: 5
   speed: 5
-  moveVelocity: 0
 --- !u!61 &1614630521
 BoxCollider2D:
   m_ObjectHideFlags: 0
