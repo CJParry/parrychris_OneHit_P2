@@ -70,18 +70,24 @@ public class PlayerOneBehaviour : MonoBehaviour {
 		}
 	}
 
-	void OnTriggerEnter2D(){
+	void OnTriggerEnter2D(Collider2D coll){
+		//check if floor or other player
+		if(coll.transform.tag.Contains("Ground")){
 		grounded = true;
 	}
-	void OnTriggerExit2D(){
+	}
+	void OnTriggerExit2D(Collider2D coll){
+		//check if floor or other player
+				if(coll.transform.tag.Contains("Ground")){
+
 		grounded = false;
+	}
 	}
 
 	void Flip(){
 		//flip both charcters
 		transform.Rotate(new Vector3(0,180,0));
 		enemyScript.transform.Rotate(new Vector3(0,180,0));
-
 		onRightSide = !onRightSide;
 
 	}

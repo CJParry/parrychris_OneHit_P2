@@ -53,10 +53,17 @@ public class PlayerTwoBehaviour : MonoBehaviour {
 
 	}
 
-	void OnTriggerEnter2D(){
+	void OnTriggerEnter2D(Collider2D coll){
+		//check if floor or other player
+		if(coll.transform.tag.Contains("Ground")){
 		grounded = true;
 	}
-	void OnTriggerExit2D(){
+	}
+	void OnTriggerExit2D(Collider2D coll){
+		//check if floor or other player
+				if(coll.transform.tag.Contains("Ground")){
+
 		grounded = false;
+	}
 	}
 }
