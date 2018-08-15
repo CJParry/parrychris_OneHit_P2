@@ -3,28 +3,46 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerOneBehaviour : MonoBehaviour {
-	public Vector2 movement;
-	public bool grounded = true;
-	Rigidbody2D rb2d;
-	public Vector2 speed = new Vector2(5, 5);
-	public int jumpHeight;
+
+	public bool grounded = false;
+	public float jump;
+	public float speed;
+	float moveVelocity;
 
 	// Use this for initialization
 	void Start () {
-		rb2d = GetComponent<Rigidbody2D> ();
 	}
 
 	void FixedUpdate(){
-		
-		rb2d.velocity = movement;
+
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
-		float inputX = Input.GetAxis ("HorizontalP1");
-		float inputY = Input.GetAxis ("JumpP1");
-		movement = new Vector2 (
-			speed.x * inputX,
-			speed.y * inputY * jumpHeight);
+		//jump
+
+		if (Input.GetKeyDown (KeyCode.UpArrow)){
+			if (grounded) {
+				GetComponent<Rigidbody2D> ().velocity = new Vector2 (
+					GetComponent<Rigidbody2D> ().velocity.x, jump);
+			}
+		}
+		moveVelocity = 0;
+		//Horizontal movement
+		if (Input.GetKey (KeyCode.LeftArrow)) {
+			moveVelocity = -speed;	//move left
+		}
+		if (Input.GetKey (KeyCode.RightApple)) {
+			moveVelocity = speed;	//move right
+		}
+		GetComponent<Rigidbody2D> ().velocity = new Vector2 (moveVelocity, 
+			GetComponent <Rigidbody2D> ().velocity.y);
+	}
+
+	void OnTriggerEnter2D(){
+		grounded = true;
+	}
+	void OnTriggerExit2D(){
+		grounded = false;
 	}
 }
