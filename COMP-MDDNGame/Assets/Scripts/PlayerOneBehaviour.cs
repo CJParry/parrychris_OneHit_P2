@@ -32,7 +32,7 @@ public class PlayerOneBehaviour : MonoBehaviour {
 		if (Input.GetKey (KeyCode.LeftArrow)) {
 			moveVelocity = -speed;	//move left
 		}
-		if (Input.GetKey (KeyCode.RightApple)) {
+		if (Input.GetKey (KeyCode.RightArrow)) {
 			moveVelocity = speed;	//move right
 		}
 		GetComponent<Rigidbody2D> ().velocity = new Vector2 (moveVelocity, 
