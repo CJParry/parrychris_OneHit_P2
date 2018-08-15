@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerOneBehaviour : MonoBehaviour {
+	public Vector2 movement;
+	public bool grounded = true;
 	Rigidbody2D rb2d;
-	public int speed;
+	public Vector2 speed = new Vector2(5, 5);
+	public int jumpHeight;
 
 	// Use this for initialization
 	void Start () {
@@ -12,13 +15,16 @@ public class PlayerOneBehaviour : MonoBehaviour {
 	}
 
 	void FixedUpdate(){
-		float horizontal = Input.GetAxis ("HorizontalP1");
-		Vector3 move = new Vector3(horizontal * speed, rb2d.velocity.y, 0f);
-		rb2d.velocity = move;
+		
+		rb2d.velocity = movement;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+		float inputX = Input.GetAxis ("HorizontalP1");
+		float inputY = Input.GetAxis ("JumpP1");
+		movement = new Vector2 (
+			speed.x * inputX,
+			speed.y * inputY * jumpHeight);
 	}
 }

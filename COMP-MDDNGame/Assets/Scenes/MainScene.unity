@@ -245,7 +245,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4081f1b24ae449289012ac26f9caa38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
+  movement: {x: 0, y: 0}
+  grounded: 1
+  speed: {x: 5, y: 5}
+  jumpHeight: 5
 --- !u!1 &1281667408
 GameObject:
   m_ObjectHideFlags: 0
@@ -355,8 +358,8 @@ GameObject:
   - component: {fileID: 1614630518}
   - component: {fileID: 1614630517}
   - component: {fileID: 1614630516}
-  - component: {fileID: 1614630519}
   - component: {fileID: 1614630520}
+  - component: {fileID: 1614630519}
   m_Layer: 0
   m_Name: PlayerTwo
   m_TagString: Untagged
@@ -477,7 +480,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36166f46d7d8f40a1806eb9e00535d60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  movement: {x: 0, y: 0}
+  grounded: 1
+  speed: {x: 5, y: 5}
+  jumpHeight: 5
 --- !u!1 &1742281763
 GameObject:
   m_ObjectHideFlags: 0
