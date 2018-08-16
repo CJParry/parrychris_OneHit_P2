@@ -122,9 +122,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1053227046}
   - component: {fileID: 1053227045}
+  - component: {fileID: 1053227047}
   - component: {fileID: 1053227044}
   - component: {fileID: 1053227048}
-  - component: {fileID: 1053227047}
   - component: {fileID: 1053227043}
   - component: {fileID: 1053227049}
   m_Layer: 0
@@ -250,7 +250,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 1614630515}
-  jump: 8
+  jump: 15
   speed: 3
 --- !u!61 &1053227048
 BoxCollider2D:
@@ -264,7 +264,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0027303696, y: 0.026703835}
+  m_Offset: {x: 1.4072948, y: 0.026703835}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -275,7 +275,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 9.604921, y: 14.647722}
+  m_Size: {x: 6.7957926, y: 14.647722}
   m_EdgeRadius: 0
 --- !u!95 &1053227049
 Animator:
@@ -431,9 +431,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1614630518}
   - component: {fileID: 1614630517}
-  - component: {fileID: 1614630516}
   - component: {fileID: 1614630520}
   - component: {fileID: 1614630519}
+  - component: {fileID: 1614630516}
   - component: {fileID: 1614630521}
   m_Layer: 0
   m_Name: PlayerTwo
@@ -557,7 +557,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36166f46d7d8f40a1806eb9e00535d60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jump: 5
+  jump: 20
   speed: 5
 --- !u!61 &1614630521
 BoxCollider2D:
