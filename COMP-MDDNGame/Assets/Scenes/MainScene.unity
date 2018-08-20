@@ -293,7 +293,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.97334194, y: 0.91320324}
+  m_Size: {x: 1.011, y: 0.91320324}
   m_EdgeRadius: 0
 --- !u!4 &443612779
 Transform:
@@ -432,7 +432,7 @@ GameObject:
   - component: {fileID: 1053227048}
   m_Layer: 0
   m_Name: PlayerOne
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -769,7 +769,7 @@ GameObject:
   - component: {fileID: 1565138147}
   m_Layer: 0
   m_Name: PlayerTwo
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -867,7 +867,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1565138146}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4081f1b24ae449289012ac26f9caa38, type: 3}
   m_Name: 
@@ -950,7 +950,7 @@ GameObject:
   - component: {fileID: 1614630516}
   - component: {fileID: 1614630521}
   m_Layer: 0
-  m_Name: PlayerTwo
+  m_Name: PlayerTwo.0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1295,7 +1295,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 3.0050821, y: -0.616632}
+  m_Offset: {x: 3.7284098, y: -0.616632}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1306,7 +1306,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.4585981, y: 0.91320324}
+  m_Size: {x: 1.0119429, y: 0.91320324}
   m_EdgeRadius: 0
 --- !u!1 &2057325551
 GameObject:

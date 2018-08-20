@@ -12,12 +12,49 @@ public class PlayerOneBehaviour : MonoBehaviour {
 	private float moveVelocity;
 	private bool grounded = true;
 	private Rigidbody2D rb2d;
+	private Rigidbody2D rb2d1;
+	private Rigidbody2D rb2d2;
+
 
 
 	// Use this for initialization
 	void Start () {
 		rb2d = GetComponent<Rigidbody2D> ();
-		enemyScript = enemy.GetComponent<PlayerTwoBehaviour> ();
+
+		rb2d1 = GameObject.FindGameObjectWithTag ("Player 1").GetComponent<Rigidbody2D> ();
+		rb2d2 = GameObject.FindGameObjectWithTag ("Player 2").GetComponent<Rigidbody2D> ();
+
+	}
+	public GameObject playerPrefab;
+	List<GameObject> players = new List<GameObject>();
+
+	void Update()
+	{
+		foreach(GameObject player in GameObject.FindObjectsOfType (typeof(GameObject)))
+		{
+			if(player.tag == "Player" && !players.Contains(player))
+				players.Add (player);
+		}
+
+		if(Input.GetKey(KeyCode.A))
+			players[0].transform.Translate (Vector3.left * speed * Time.deltaTime);
+		if(Input.GetKey(KeyCode.D))
+			players[0].transform.Translate(Vector3.right * speed * Time.deltaTime);
+		if(Input.GetKey (KeyCode.W))
+			players[0].transform.Translate(Vector3.up * speed * Time.deltaTime);
+		if(Input.GetKey (KeyCode.S))
+			players[0].transform.Translate (Vector3.down * speed * Time.deltaTime);
+
+		if(Input.GetKey(KeyCode.LeftArrow))
+			players[1].transform.Translate (Vector3.left * speed * Time.deltaTime);
+		if(Input.GetKey(KeyCode.RightArrow))
+			players[1].transform.Translate(Vector3.right * speed * Time.deltaTime);
+		if(Input.GetKey (KeyCode.UpArrow))
+			players[1].transform.Translate(Vector3.up * speed * Time.deltaTime);
+		if(Input.GetKey (KeyCode.DownArrow))
+			players[1].transform.Translate (Vector3.down * speed * Time.deltaTime);
+
+
 	}
 
 	void FixedUpdate(){
