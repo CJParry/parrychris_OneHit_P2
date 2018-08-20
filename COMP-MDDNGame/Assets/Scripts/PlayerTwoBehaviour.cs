@@ -33,7 +33,7 @@ public class PlayerTwoBehaviour : MonoBehaviour {
 					rb2d.velocity.x, jump);
 			}
 		}
-		else if (Input.GetKeyDown (KeyCode.LeftShift)) {
+		else if (Input.GetKeyDown (KeyCode.LeftShift) && shieldUp == false) {
 
 			LaunchAttack(attackHitboxes[1]);	//melee
 		}else if (Input.GetKeyDown (KeyCode.E)) {

@@ -34,7 +34,7 @@ public class PlayerOneBehaviour : MonoBehaviour {
 				rb2d.velocity = new Vector2 (
 					rb2d.velocity.x, jump);
 			}
-		} else if (Input.GetKeyDown (KeyCode.RightShift)) {
+		} else if (Input.GetKeyDown (KeyCode.RightShift) && shieldUp == false) {
 			LaunchAttack (attackHitboxes [0]);	//melee
 		} else if (Input.GetKeyDown (KeyCode.RightAlt)) {
 
