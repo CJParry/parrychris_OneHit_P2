@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PlayerTwoBehaviour : MonoBehaviour {
+public class PlayerTwoBehaviour : MonoBehaviour
+{
 	public GameObject enemy;
 	private PlayerOneBehaviour enemyScript;
 	public int dashSpeed;
@@ -24,13 +25,15 @@ public class PlayerTwoBehaviour : MonoBehaviour {
 
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+	{
 		rb2d = GetComponent<Rigidbody2D> ();
 		enemyScript = enemy.GetComponent<PlayerOneBehaviour> ();
 
 	}
 
-	void Update(){
+	void Update ()
+	{
 
 		//jump
 		if (Input.GetKey (KeyCode.W)) {
@@ -55,20 +58,21 @@ public class PlayerTwoBehaviour : MonoBehaviour {
 		Vector3 position = transform.position;
 
 
-				if (onRightSide) {
-					if (position.x < enemyScript.transform.position.x) {
-						Flip ();
-					}
-				} else {
-					if (position.x >= enemyScript.transform.position.x) {
-						Flip ();
-					}
+		if (onRightSide) {
+			if (position.x < enemyScript.transform.position.x) {
+				Flip ();
+			}
+		} else {
+			if (position.x >= enemyScript.transform.position.x) {
+				Flip ();
+			}
 		
-				}
+		}
 
 	}
 
-	void Dash(){
+	void Dash ()
+	{
 		if (onRightSide) {
 			rb2d.AddForce (new Vector2 (-dashSpeed, 0));
 		} else {
@@ -77,7 +81,8 @@ public class PlayerTwoBehaviour : MonoBehaviour {
 	}
 
 
-	void FixedUpdate(){
+	void FixedUpdate ()
+	{
 		//		Horizontal movement
 
 		//					Alternative way
@@ -108,12 +113,13 @@ public class PlayerTwoBehaviour : MonoBehaviour {
 		}
 	}
 
-	private void LaunchAttack(Collider2D col){
-		Collider2D[] cols = Physics2D.OverlapBoxAll(
-			col.bounds.center, 
-			col.bounds.extents, 
-			0, 
-			LayerMask.GetMask("Hitbox"));
+	private void LaunchAttack (Collider2D col)
+	{
+		Collider2D[] cols = Physics2D.OverlapBoxAll (
+			                    col.bounds.center, 
+			                    col.bounds.extents, 
+			                    0, 
+			                    LayerMask.GetMask ("Hitbox"));
 
 		foreach (Collider2D c in cols) {
 			if (c.transform.parent.parent == transform || enemyScript.shieldUp == true) {
@@ -126,9 +132,10 @@ public class PlayerTwoBehaviour : MonoBehaviour {
 
 	}
 
-	void GameOver(){
+	void GameOver ()
+	{
 		//Application.LoadLevel(Application.loadedLevel);
-		SceneManager.LoadScene("MainScene", LoadSceneMode.Single);
+		SceneManager.LoadScene ("MainScene", LoadSceneMode.Single);
 
 	}
 
@@ -167,24 +174,28 @@ public class PlayerTwoBehaviour : MonoBehaviour {
 	////		}
 	//	}
 
-	void OnTriggerEnter2D(Collider2D coll){
+	void OnTriggerEnter2D (Collider2D coll)
+	{
 		//check if floor or other player
-		if(coll.transform.tag.Contains("Ground")){
+		if (coll.transform.tag.Contains ("Ground")) {
 			grounded = true;
 		}
 	}
-	void OnTriggerExit2D(Collider2D coll){
+
+	void OnTriggerExit2D (Collider2D coll)
+	{
 		//check if floor or other player
-		if(coll.transform.tag.Contains("Ground")){
+		if (coll.transform.tag.Contains ("Ground")) {
 
 			grounded = false;
 		}
 	}
 
-	void Flip(){
+	void Flip ()
+	{
 		//flip both charcters
-		transform.Rotate(new Vector3(0,180,0));
-		enemyScript.transform.Rotate(new Vector3(0,180,0));
+		transform.Rotate (new Vector3 (0, 180, 0));
+		enemyScript.transform.Rotate (new Vector3 (0, 180, 0));
 		enemyScript.onRightSide = !enemyScript.onRightSide;
 		onRightSide = !onRightSide;
 
