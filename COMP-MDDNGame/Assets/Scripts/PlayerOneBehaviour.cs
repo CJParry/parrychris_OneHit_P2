@@ -28,18 +28,61 @@ public class PlayerOneBehaviour : MonoBehaviour
 		enemyScript = enemy.GetComponent<PlayerTwoBehaviour> ();
 	}
 
+	// Called every frame
 	void Update ()
 	{
 		if (Input.GetKey (KeyCode.UpArrow)) {									//	jump
 			Jump();
-		} else if (Input.GetKeyDown (KeyCode.RightShift) && shieldUp == false) {  //melee
+
+		} else if (Input.GetKey (KeyCode.RightShift) && shieldUp == false) {    //melee
 			LaunchAttack (attackHitboxes [0]);	
-		} else if (Input.GetKeyDown (KeyCode.RightAlt)) {							//block
+
+		} else if (Input.GetKeyDown (KeyCode.RightAlt)) {						//block
 			Block();
 		}
 	}
 
-	void Block(){
+	// Called every frame 
+	void FixedUpdate ()
+	{
+		if (grounded) {
+			moveVelocity = 0;
+
+			if (Input.GetKey (KeyCode.LeftArrow)) {
+				moveVelocity = -speed;							  			//move left
+
+			}
+			if (Input.GetKey (KeyCode.RightArrow)) {
+				moveVelocity = speed;										//move right
+
+			}
+			if (Input.GetKey (KeyCode.DownArrow) && Time.time > nextDash) {
+				nextDash = Time.time + dashCooldown;
+				Dash ();													//dash
+				return;
+			}
+			rb2d.velocity = new Vector2 (moveVelocity, 
+				rb2d.velocity.y);
+		}
+	}
+
+	void OnTriggerEnter2D (Collider2D coll)
+	{
+		//check if floor or other player
+		if (coll.transform.tag.Contains ("Ground") || coll.transform.tag.Contains ("Head")) {
+			grounded = true;
+		}
+	}
+
+	void OnTriggerExit2D (Collider2D coll)
+	{
+		//check if floor or other player
+		if (coll.transform.tag.Contains ("Ground") || coll.transform.tag.Contains ("Head")) {
+			grounded = false;
+		}
+	}
+
+	private void Block(){
 		//toggle shield on/off
 		shieldUp = !shieldUp;
 
@@ -47,7 +90,7 @@ public class PlayerOneBehaviour : MonoBehaviour
 		ChildGameObject.GetComponent<SpriteRenderer> ().enabled = shieldUp;
 	}
 
-	void Dash ()
+	private void Dash ()
 	{
 		if (onRightSide) {
 			rb2d.AddForce (new Vector2 (-dashSpeed, 0));
@@ -56,34 +99,11 @@ public class PlayerOneBehaviour : MonoBehaviour
 		}
 	}
 
-	void Jump(){
+	private void Jump(){
 		//check player is grounded before jumping
 		if (grounded) {
 			rb2d.velocity = new Vector2 (
 				rb2d.velocity.x, jump);
-		}
-	}
-
-	void FixedUpdate ()
-	{
-		if (grounded) {
-			moveVelocity = 0;
-
-			if (Input.GetKey (KeyCode.LeftArrow)) {
-				moveVelocity = -speed;	//move left
-		
-			}
-			if (Input.GetKey (KeyCode.RightArrow)) {
-				moveVelocity = speed;	//move right
-
-			}
-			if (Input.GetKey (KeyCode.Slash) && Time.time > nextDash) {
-				nextDash = Time.time + dashCooldown;
-				Dash ();					//dash
-				return;
-			}
-			rb2d.velocity = new Vector2 (moveVelocity, 
-				rb2d.velocity.y);
 		}
 	}
 
@@ -104,24 +124,8 @@ public class PlayerOneBehaviour : MonoBehaviour
 		}
 	}
 
-	void GameOver ()
+	private void GameOver ()
 	{
 		SceneManager.LoadScene ("MainScene", LoadSceneMode.Single);
-	}
-		
-	void OnTriggerEnter2D (Collider2D coll)
-	{
-		//check if floor or other player
-		if (coll.transform.tag.Contains ("Ground")) {
-			grounded = true;
-		}
-	}
-
-	void OnTriggerExit2D (Collider2D coll)
-	{
-		//check if floor or other player
-		if (coll.transform.tag.Contains ("Ground")) {
-			grounded = false;
-		}
 	}
 }
