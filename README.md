@@ -13,13 +13,13 @@ $ cd COMP-MDDNGame
 ```
 ### Dev Controls:  
 #### Player One:  
-Movement: Arrow keys  
+Movement: Arrow Keys  
 Attack: Right Shift  
 Block: Left Alt  
-Dash: /  
+Dash: Down Arrow  
 
 #### Player Two:  
 Movement: WASD  
 Attack: Left Shift  
 Block: E  
-Dash: Q  
+Dash: S  
