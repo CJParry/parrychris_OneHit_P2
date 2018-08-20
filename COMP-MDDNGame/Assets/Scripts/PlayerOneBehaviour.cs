@@ -31,10 +31,6 @@ public class PlayerOneBehaviour : MonoBehaviour {
 					rb2d.velocity.x, jump);
 			}
 		} else if (Input.GetKeyDown (KeyCode.RightShift)) {
-			int idx = 1;
-			if (onRightSide == true) {
-				idx = 0;
-			}
 			LaunchAttack(attackHitboxes[0]);	//melee
 		}
 

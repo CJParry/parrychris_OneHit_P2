@@ -419,11 +419,11 @@ Rigidbody2D:
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 6.6067395
+  m_UseAutoMass: 1
+  m_Mass: 5.6941495
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 7
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -525,8 +525,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 1565138146}
-  jump: 5
-  speed: 5
+  jump: 21
+  speed: 9
   attackHitboxes:
   - {fileID: 1986714499}
   - {fileID: 135663281}
@@ -801,11 +801,11 @@ Rigidbody2D:
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 6.6067395
+  m_UseAutoMass: 1
+  m_Mass: 5.6941495
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 7
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -848,8 +848,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 1053227042}
-  jump: 15
-  speed: 5
+  jump: 21
+  speed: 9
   attackHitboxes:
   - {fileID: 443612778}
   - {fileID: 882408433}
