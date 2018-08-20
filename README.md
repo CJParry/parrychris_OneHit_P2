@@ -15,7 +15,7 @@ $ cd COMP-MDDNGame
 #### Player One:  
 Movement: Arrow keys  
 Attack: Right Shift  
-Block: Left Alt
+Block: Left Alt  
 Dash: /  
 
 #### Player Two:  
