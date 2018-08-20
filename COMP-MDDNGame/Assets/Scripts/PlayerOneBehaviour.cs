@@ -37,7 +37,12 @@ public class PlayerOneBehaviour : MonoBehaviour {
 		} else if (Input.GetKeyDown (KeyCode.RightShift)) {
 			LaunchAttack (attackHitboxes [0]);	//melee
 		} else if (Input.GetKeyDown (KeyCode.RightAlt)) {
-			shieldUp = !shieldUp;		}
+
+			shieldUp = !shieldUp;
+
+			GameObject  ChildGameObject = this.gameObject.transform.GetChild (0).gameObject;
+			ChildGameObject.GetComponent<SpriteRenderer>().enabled = shieldUp;
+			}
 
 		//check if players have passed each other for flip
 		Vector3 position = transform.position;
