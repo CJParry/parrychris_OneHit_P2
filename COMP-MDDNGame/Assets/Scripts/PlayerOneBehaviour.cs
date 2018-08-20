@@ -68,7 +68,7 @@ public class PlayerOneBehaviour : MonoBehaviour {
 				rb2d.velocity = new Vector2 (
 					rb2d.velocity.x, jump);
 			}
-		} else if (Input.GetKeyDown (KeyCode.LeftArrow)) {
+		} else if (Input.GetKeyDown (KeyCode.RightShift)) {
 			LaunchAttack(attackHitboxes[0]);	//melee
 		}
 
@@ -86,12 +86,12 @@ public class PlayerOneBehaviour : MonoBehaviour {
 			}
 
 		}
-		//Melee attack
-		if(Input.GetKeyDown(KeyCode.RightControl)){
-			Collider2D[] hitObjects = Physics2D.OverlapCircleAll(transform.position, 1.0f);
-			//hitObjects[0].SendMessage("TakeDamage", 1, SendMessageOptions.DontRequireReceiver);	//change to purely take damage as 1 hit kill
-		Debug.Log("Hit" + hitObjects[0].name);
-		}
+//		//Melee attack
+//		if(Input.GetKeyDown(KeyCode.RightControl)){
+//			Collider2D[] hitObjects = Physics2D.OverlapCircleAll(transform.position, 1.0f);
+//			//hitObjects[0].SendMessage("TakeDamage", 1, SendMessageOptions.DontRequireReceiver);	//change to purely take damage as 1 hit kill
+//		Debug.Log("Hit" + hitObjects[0].name);
+//		}
 	}
 
 	void OnTriggerEnter2D(Collider2D coll){
