@@ -37,7 +37,7 @@ public class PlayerTwoBehaviour : MonoBehaviour {
 
 			LaunchAttack(attackHitboxes[1]);	//melee
 		}else if (Input.GetKeyDown (KeyCode.E)) {
-			shieldUp = true;		}
+			shieldUp = !shieldUp;		}
 		
 			
 		//check if players have passed each other for flip
