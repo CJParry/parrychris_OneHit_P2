@@ -55,7 +55,13 @@ public class PlayerOneBehaviour : MonoBehaviour {
 				continue;
 			}
 			Debug.Log (c.name + "HITTT");
+			GameOver ();
 		}
+
+	}
+
+	void GameOver(){
+		Application.LoadLevel(Application.loadedLevel);
 
 	}
 
