@@ -11,4 +11,13 @@
 $ git clone [clone link from your repository]
 $ cd COMP-MDDNGame
 ```
+### Dev Controls:  
+#### Player One:  
+Movement: Arrow keys  
+Attack: Right Shift  
+Block: Left Alt
 
+#### Player Two:  
+Movement: WASD  
+Attack: Left Shift  
+Block: E  
