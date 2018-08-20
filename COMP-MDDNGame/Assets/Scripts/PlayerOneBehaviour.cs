@@ -8,7 +8,7 @@ public class PlayerOneBehaviour : MonoBehaviour {
 	public float jump;
 	public float speed;
 	public Collider2D[] attackHitboxes;
-	private bool onRightSide = true;
+	public bool onRightSide = true;
 	private float moveVelocity;
 	private bool grounded = true;
 	private Rigidbody2D rb2d;
@@ -17,6 +17,8 @@ public class PlayerOneBehaviour : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		rb2d = GetComponent<Rigidbody2D> ();
+		enemyScript = enemy.GetComponent<PlayerTwoBehaviour> ();
+
 	}
 
 	void Update(){
@@ -29,6 +31,10 @@ public class PlayerOneBehaviour : MonoBehaviour {
 					rb2d.velocity.x, jump);
 			}
 		} else if (Input.GetKeyDown (KeyCode.RightShift)) {
+			int idx = 1;
+			if (onRightSide == true) {
+				idx = 0;
+			}
 			LaunchAttack(attackHitboxes[0]);	//melee
 		}
 
@@ -77,7 +83,7 @@ public class PlayerOneBehaviour : MonoBehaviour {
 			if (c.transform.parent.parent == transform) {
 				continue;
 			}
-			Debug.Log (c.name + "HITTT");
+			Debug.Log ("Player One Wins!");
 			GameOver ();
 		}
 

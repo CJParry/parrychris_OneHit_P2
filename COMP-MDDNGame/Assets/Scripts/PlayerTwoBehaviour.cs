@@ -8,15 +8,18 @@ public class PlayerTwoBehaviour : MonoBehaviour {
 	public float jump;
 	public float speed;
 	public Collider2D[] attackHitboxes;
-	private bool onRightSide = true;
+	private bool onRightSide = false;
 	private float moveVelocity;
 	private bool grounded = true;
+	//private bool facingLeft = false;
 	private Rigidbody2D rb2d;
 
 
 	// Use this for initialization
 	void Start () {
 		rb2d = GetComponent<Rigidbody2D> ();
+		enemyScript = enemy.GetComponent<PlayerOneBehaviour> ();
+
 	}
 
 	void Update(){
@@ -29,11 +32,24 @@ public class PlayerTwoBehaviour : MonoBehaviour {
 			}
 		}
 		else if (Input.GetKeyDown (KeyCode.LeftShift)) {
-			LaunchAttack(attackHitboxes[0]);	//melee
+
+			LaunchAttack(attackHitboxes[1]);	//melee
 		}
 			
 		//check if players have passed each other for flip
 		Vector3 position = transform.position;
+
+
+				if (onRightSide == true) {
+					if (position.x < enemyScript.transform.position.x) {
+						Flip ();
+					}
+				} else {
+					if (position.x >= enemyScript.transform.position.x) {
+						Flip ();
+					}
+		
+				}
 
 	}
 
@@ -75,7 +91,8 @@ public class PlayerTwoBehaviour : MonoBehaviour {
 			if (c.transform.parent.parent == transform) {
 				continue;
 			}
-			Debug.Log (c.name + "HITTT");
+			Debug.Log ("Player Two Wins!");
+
 			GameOver ();
 		}
 
@@ -139,6 +156,7 @@ public class PlayerTwoBehaviour : MonoBehaviour {
 		//flip both charcters
 		transform.Rotate(new Vector3(0,180,0));
 		enemyScript.transform.Rotate(new Vector3(0,180,0));
+		enemyScript.onRightSide = !enemyScript.onRightSide;
 		onRightSide = !onRightSide;
 
 	}
