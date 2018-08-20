@@ -31,15 +31,27 @@ public class PlayerOneBehaviour : MonoBehaviour
 	// Called every frame
 	void Update ()
 	{
+		if (Input.GetKey (KeyCode.RightShift)) {
+			LaunchAttack (attackHitboxes [0]);	
+		}
 		if (Input.GetKey (KeyCode.UpArrow)) {									//	jump
 			Jump();
 
-		} else if (Input.GetKey (KeyCode.RightShift) && shieldUp == false) {    //melee
+		} else if (Input.GetKeyUp (KeyCode.RightShift) && shieldUp == false) {    //melee
+			GameObject ChildGameObject = this.gameObject.transform.GetChild (1).gameObject;
+			ChildGameObject.GetComponent<SpriteRenderer> ().enabled = false;
+
+		}
+		else if (Input.GetKeyDown (KeyCode.RightShift) && shieldUp == false) {    //melee
+			GameObject ChildGameObject = this.gameObject.transform.GetChild (1).gameObject;
+			ChildGameObject.GetComponent<SpriteRenderer> ().enabled = true;
 			LaunchAttack (attackHitboxes [0]);	
 
-		} else if (Input.GetKeyDown (KeyCode.RightAlt)) {						//block
+		}
+		 else if (Input.GetKeyDown (KeyCode.RightAlt)) {						//block
 			Block();
 		}
+
 	}
 
 	// Called every frame 

@@ -37,12 +37,20 @@ public class PlayerTwoBehaviour : MonoBehaviour
 	void Update ()
 	{
 		if (Input.GetKey (KeyCode.W)) {									//	jump
-			Jump();
+			Jump ();
+		}
+		else if (Input.GetKeyUp (KeyCode.LeftShift) && shieldUp == false) {    //melee
+			GameObject ChildGameObject = this.gameObject.transform.GetChild (1).gameObject;
+			ChildGameObject.GetComponent<SpriteRenderer> ().enabled = false;
 
-		} else if (Input.GetKey (KeyCode.LeftShift) && shieldUp == false) {    //melee
+		}
+		else if (Input.GetKeyDown (KeyCode.LeftShift) && shieldUp == false) {    //melee
+			GameObject ChildGameObject = this.gameObject.transform.GetChild (1).gameObject;
+			ChildGameObject.GetComponent<SpriteRenderer> ().enabled = true;
 			LaunchAttack (attackHitboxes [1]);	
 
-		} else if (Input.GetKeyDown (KeyCode.E)) {						//block
+		}
+		else if (Input.GetKeyDown (KeyCode.E)) {						//block
 			Block();
 		}
 
