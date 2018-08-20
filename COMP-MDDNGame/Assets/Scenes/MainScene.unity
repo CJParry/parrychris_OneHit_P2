@@ -531,6 +531,7 @@ MonoBehaviour:
   - {fileID: 1986714499}
   - {fileID: 135663281}
   onRightSide: 1
+  shieldUp: 0
 --- !u!61 &1053227048
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -963,6 +964,7 @@ MonoBehaviour:
   attackHitboxes:
   - {fileID: 443612778}
   - {fileID: 882408433}
+  shieldUp: 0
 --- !u!212 &1565138152
 SpriteRenderer:
   m_ObjectHideFlags: 0

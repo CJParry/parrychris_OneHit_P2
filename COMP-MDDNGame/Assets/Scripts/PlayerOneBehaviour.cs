@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class PlayerOneBehaviour : MonoBehaviour {
 	public GameObject enemy;
@@ -33,8 +35,9 @@ public class PlayerOneBehaviour : MonoBehaviour {
 					rb2d.velocity.x, jump);
 			}
 		} else if (Input.GetKeyDown (KeyCode.RightShift)) {
-			LaunchAttack(attackHitboxes[0]);	//melee
-		}
+			LaunchAttack (attackHitboxes [0]);	//melee
+		} else if (Input.GetKeyDown (KeyCode.RightAlt)) {
+			shieldUp = true;		}
 
 		//check if players have passed each other for flip
 		Vector3 position = transform.position;
@@ -88,7 +91,9 @@ public class PlayerOneBehaviour : MonoBehaviour {
 	}
 
 	void GameOver(){
-		Application.LoadLevel(Application.loadedLevel);
+		SceneManager.LoadScene("MainScene", LoadSceneMode.Single);
+
+		//Application.LoadLevel(Application.loadedLevel);
 
 	}
 

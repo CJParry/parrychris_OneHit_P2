@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerTwoBehaviour : MonoBehaviour {
 	public GameObject enemy;
@@ -35,7 +36,9 @@ public class PlayerTwoBehaviour : MonoBehaviour {
 		else if (Input.GetKeyDown (KeyCode.LeftShift)) {
 
 			LaunchAttack(attackHitboxes[1]);	//melee
-		}
+		}else if (Input.GetKeyDown (KeyCode.E)) {
+			shieldUp = true;		}
+		
 			
 		//check if players have passed each other for flip
 		Vector3 position = transform.position;
@@ -89,7 +92,7 @@ public class PlayerTwoBehaviour : MonoBehaviour {
 			LayerMask.GetMask("Hitbox"));
 
 		foreach (Collider2D c in cols) {
-			if (c.transform.parent.parent == transform ){//|| enemyScript.shieldUp == true) {
+			if (c.transform.parent.parent == transform || enemyScript.shieldUp == true) {
 				continue;
 			}
 			Debug.Log ("Player Two Wins!");
@@ -100,7 +103,8 @@ public class PlayerTwoBehaviour : MonoBehaviour {
 	}
 
 	void GameOver(){
-		Application.LoadLevel(Application.loadedLevel);
+		//Application.LoadLevel(Application.loadedLevel);
+		SceneManager.LoadScene("MainScene", LoadSceneMode.Single);
 
 	}
 
