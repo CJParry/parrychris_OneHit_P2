@@ -36,6 +36,11 @@ public class PlayerTwoBehaviour : MonoBehaviour
 	// Called every frame
 	void Update ()
 	{
+
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            LaunchAttack(attackHitboxes[1]);
+        }
 		if (Input.GetKey (KeyCode.W)) {									//	jump
 			Jump ();
 		}
