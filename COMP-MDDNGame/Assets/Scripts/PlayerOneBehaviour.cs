@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class PlayerOneBehaviour : MonoBehaviour {
 	public GameObject enemy;
-	private PlayerTwoBehaviour enemyScript;
 	public float jump;
 	public float speed;
+	private PlayerTwoBehaviour enemyScript;
+
 	public Collider2D[] attackHitboxes;
 	public bool onRightSide = true;
+	public bool shieldUp = false;
 	private float moveVelocity;
 	private bool grounded = true;
 	private Rigidbody2D rb2d;
@@ -76,7 +78,7 @@ public class PlayerOneBehaviour : MonoBehaviour {
 			LayerMask.GetMask("Hitbox"));
 		
 		foreach (Collider2D c in cols) {
-			if (c.transform.parent.parent == transform) {
+			if (c.transform.parent.parent == transform || enemyScript.shieldUp == true) {
 				continue;
 			}
 			Debug.Log ("Player One Wins!");
