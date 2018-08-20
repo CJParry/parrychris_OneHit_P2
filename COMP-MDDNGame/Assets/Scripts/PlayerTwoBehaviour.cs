@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class PlayerTwoBehaviour : MonoBehaviour {
 	public GameObject enemy;
 	private PlayerOneBehaviour enemyScript;
+	public int dashSpeed;
 	public float jump;
 	public float speed;
 	public Collider2D[] attackHitboxes;
@@ -15,6 +16,11 @@ public class PlayerTwoBehaviour : MonoBehaviour {
 	private bool grounded = true;
 	//private bool facingLeft = false;
 	private Rigidbody2D rb2d;
+
+	private float nextDash = 1;
+	public float dashCooldown = 2;
+	public float dashTime = 1;
+	private bool dashing;
 
 
 	// Use this for initialization
@@ -32,25 +38,24 @@ public class PlayerTwoBehaviour : MonoBehaviour {
 				rb2d.velocity = new Vector2 (
 					rb2d.velocity.x, jump);
 			}
-		}
-		else if (Input.GetKeyDown (KeyCode.LeftShift) && shieldUp == false) {
+		} else if (Input.GetKeyDown (KeyCode.LeftShift) && shieldUp == false) {
 
-			LaunchAttack(attackHitboxes[1]);	//melee
-		}else if (Input.GetKeyDown (KeyCode.E)) {
+			LaunchAttack (attackHitboxes [1]);	//melee
+		} else if (Input.GetKeyDown (KeyCode.E)) {
 			
 			shieldUp = !shieldUp;		
 
-			GameObject  ChildGameObject = this.gameObject.transform.GetChild (0).gameObject;
-			ChildGameObject.GetComponent<SpriteRenderer>().enabled = shieldUp;
+			GameObject ChildGameObject = this.gameObject.transform.GetChild (0).gameObject;
+			ChildGameObject.GetComponent<SpriteRenderer> ().enabled = shieldUp;
 
-		}
+		} 
 		
 			
 		//check if players have passed each other for flip
 		Vector3 position = transform.position;
 
 
-				if (onRightSide == true) {
+				if (onRightSide) {
 					if (position.x < enemyScript.transform.position.x) {
 						Flip ();
 					}
@@ -61,6 +66,14 @@ public class PlayerTwoBehaviour : MonoBehaviour {
 		
 				}
 
+	}
+
+	void Dash(){
+		if (onRightSide) {
+			rb2d.AddForce (new Vector2 (-dashSpeed, 0));
+		} else {
+			rb2d.AddForce (new Vector2 (dashSpeed, 0));
+		}
 	}
 
 
@@ -82,6 +95,11 @@ public class PlayerTwoBehaviour : MonoBehaviour {
 			}
 			if (Input.GetKey (KeyCode.D)) {
 				moveVelocity = speed;	//move right
+			}
+			if (Input.GetKey (KeyCode.Q) && Time.time > nextDash) {
+				nextDash = Time.time + dashCooldown;
+				Dash ();					//dash
+				return;
 			}
 			rb2d.velocity = new Vector2 (moveVelocity, 
 				rb2d.velocity.y);

@@ -17,6 +17,13 @@ public class PlayerOneBehaviour : MonoBehaviour {
 	private bool grounded = true;
 	private Rigidbody2D rb2d;
 
+	private float nextDash = 1;
+	public float dashCooldown = 2;
+	public float dashTime = 1;
+	private bool dashing;
+	public int dashSpeed;
+
+
 
 	// Use this for initialization
 	void Start () {
@@ -48,6 +55,14 @@ public class PlayerOneBehaviour : MonoBehaviour {
 		Vector3 position = transform.position;
 
 	}
+
+	void Dash(){
+		if (onRightSide) {
+			rb2d.AddForce (new Vector2 (-dashSpeed, 0));
+		} else {
+			rb2d.AddForce (new Vector2 (dashSpeed, 0));
+		}
+	}
 		
 
 	void FixedUpdate(){
@@ -70,6 +85,12 @@ public class PlayerOneBehaviour : MonoBehaviour {
 				moveVelocity = speed;	//move right
 
 			}
+			if (Input.GetKey (KeyCode.Slash) && Time.time > nextDash) {
+				nextDash = Time.time + dashCooldown;
+				Dash ();					//dash
+				return;
+			}
+
 		
 			rb2d.velocity = new Vector2 (moveVelocity, 
 				rb2d.velocity.y);

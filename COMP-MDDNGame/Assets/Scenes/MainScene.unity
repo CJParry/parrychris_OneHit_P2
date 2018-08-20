@@ -1106,6 +1106,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 1053227042}
+  dashSpeed: 20000
   jump: 21
   speed: 9
   attackHitboxes:
