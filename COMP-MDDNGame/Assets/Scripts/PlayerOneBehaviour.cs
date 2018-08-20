@@ -7,6 +7,7 @@ public class PlayerOneBehaviour : MonoBehaviour {
 	private PlayerTwoBehaviour enemyScript;
 	public float jump;
 	public float speed;
+	public Collider2D[] attackHitboxes;
 	private bool onRightSide = true;
 	private float moveVelocity;
 	private bool grounded = true;
@@ -40,6 +41,21 @@ public class PlayerOneBehaviour : MonoBehaviour {
 			rb2d.velocity = new Vector2 (moveVelocity, 
 				rb2d.velocity.y);
 		}
+	}
+
+	private void LaunchAttack(Collider2D col){
+		Collider2D[] cols = Physics2D.OverlapBoxAll(
+			col.bounds.center, 
+			col.bounds.extents, 
+			0, 
+			LayerMask.GetMask("Hitbox"));
+		
+		foreach (Collider2D c in cols) {
+			if (c.transform.parent.parent == transform) {
+				continue;
+			}
+			Debug.Log (c.name + "HITTT");
+		}
 
 	}
 
@@ -47,11 +63,13 @@ public class PlayerOneBehaviour : MonoBehaviour {
 	void Update () {
 
 		//jump
-		if (Input.GetKeyDown (KeyCode.UpArrow)){
+		if (Input.GetKeyDown (KeyCode.UpArrow)) {
 			if (grounded) {
 				rb2d.velocity = new Vector2 (
 					rb2d.velocity.x, jump);
 			}
+		} else if (Input.GetKeyDown (KeyCode.LeftArrow)) {
+			LaunchAttack(attackHitboxes[0]);	//melee
 		}
 
 		//check if players have passed each other
