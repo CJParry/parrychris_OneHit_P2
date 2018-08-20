@@ -12,50 +12,31 @@ public class PlayerOneBehaviour : MonoBehaviour {
 	private float moveVelocity;
 	private bool grounded = true;
 	private Rigidbody2D rb2d;
-	private Rigidbody2D rb2d1;
-	private Rigidbody2D rb2d2;
-
 
 
 	// Use this for initialization
 	void Start () {
 		rb2d = GetComponent<Rigidbody2D> ();
-
-		rb2d1 = GameObject.FindGameObjectWithTag ("Player 1").GetComponent<Rigidbody2D> ();
-		rb2d2 = GameObject.FindGameObjectWithTag ("Player 2").GetComponent<Rigidbody2D> ();
-
 	}
-	public GameObject playerPrefab;
-	List<GameObject> players = new List<GameObject>();
 
-	void Update()
-	{
-		foreach(GameObject player in GameObject.FindObjectsOfType (typeof(GameObject)))
-		{
-			if(player.tag == "Player" && !players.Contains(player))
-				players.Add (player);
+	void Update(){
+			
+			
+			//	jump
+		if (Input.GetKeyDown (KeyCode.UpArrow)) {
+			if (grounded) {
+				rb2d.velocity = new Vector2 (
+					rb2d.velocity.x, jump);
+			}
+		} else if (Input.GetKeyDown (KeyCode.RightShift)) {
+			LaunchAttack(attackHitboxes[0]);	//melee
 		}
 
-		if(Input.GetKey(KeyCode.A))
-			players[0].transform.Translate (Vector3.left * speed * Time.deltaTime);
-		if(Input.GetKey(KeyCode.D))
-			players[0].transform.Translate(Vector3.right * speed * Time.deltaTime);
-		if(Input.GetKey (KeyCode.W))
-			players[0].transform.Translate(Vector3.up * speed * Time.deltaTime);
-		if(Input.GetKey (KeyCode.S))
-			players[0].transform.Translate (Vector3.down * speed * Time.deltaTime);
-
-		if(Input.GetKey(KeyCode.LeftArrow))
-			players[1].transform.Translate (Vector3.left * speed * Time.deltaTime);
-		if(Input.GetKey(KeyCode.RightArrow))
-			players[1].transform.Translate(Vector3.right * speed * Time.deltaTime);
-		if(Input.GetKey (KeyCode.UpArrow))
-			players[1].transform.Translate(Vector3.up * speed * Time.deltaTime);
-		if(Input.GetKey (KeyCode.DownArrow))
-			players[1].transform.Translate (Vector3.down * speed * Time.deltaTime);
-
+		//check if players have passed each other for flip
+		Vector3 position = transform.position;
 
 	}
+		
 
 	void FixedUpdate(){
 //		Horizontal movement
@@ -71,12 +52,17 @@ public class PlayerOneBehaviour : MonoBehaviour {
 
 			if (Input.GetKey (KeyCode.LeftArrow)) {
 				moveVelocity = -speed;	//move left
+		
 			}
 			if (Input.GetKey (KeyCode.RightArrow)) {
 				moveVelocity = speed;	//move right
+
 			}
+		
 			rb2d.velocity = new Vector2 (moveVelocity, 
 				rb2d.velocity.y);
+			
+
 		}
 	}
 
@@ -102,40 +88,40 @@ public class PlayerOneBehaviour : MonoBehaviour {
 
 	}
 
-	// Update is called once per frame
-	void Update () {
-
-		//jump
-		if (Input.GetKeyDown (KeyCode.UpArrow)) {
-			if (grounded) {
-				rb2d.velocity = new Vector2 (
-					rb2d.velocity.x, jump);
-			}
-		} else if (Input.GetKeyDown (KeyCode.RightShift)) {
-			LaunchAttack(attackHitboxes[0]);	//melee
-		}
-
-		//check if players have passed each other
-		Vector3 position = transform.position;
-
-
-		if (onRightSide == true) {
-			if (position.x < enemyScript.transform.position.x) {
-				Flip ();
-			}
-		} else {
-			if (position.x >= enemyScript.transform.position.x) {
-				Flip ();
-			}
-
-		}
-//		//Melee attack
-//		if(Input.GetKeyDown(KeyCode.RightControl)){
-//			Collider2D[] hitObjects = Physics2D.OverlapCircleAll(transform.position, 1.0f);
-//			//hitObjects[0].SendMessage("TakeDamage", 1, SendMessageOptions.DontRequireReceiver);	//change to purely take damage as 1 hit kill
-//		Debug.Log("Hit" + hitObjects[0].name);
+//	// Update is called once per frame
+//	void Update () {
+//
+//		//jump
+//		if (Input.GetKeyDown (KeyCode.UpArrow)) {
+//			if (grounded) {
+//				rb2d.velocity = new Vector2 (
+//					rb2d.velocity.x, jump);
+//			}
+//		} else if (Input.GetKeyDown (KeyCode.RightShift)) {
+//			LaunchAttack(attackHitboxes[0]);	//melee
 //		}
-	}
+//
+//		//check if players have passed each other
+//		Vector3 position = transform.position;
+//
+//
+//		if (onRightSide == true) {
+//			if (position.x < enemyScript.transform.position.x) {
+//				Flip ();
+//			}
+//		} else {
+//			if (position.x >= enemyScript.transform.position.x) {
+//				Flip ();
+//			}
+//
+//		}
+////		//Melee attack
+////		if(Input.GetKeyDown(KeyCode.RightControl)){
+////			Collider2D[] hitObjects = Physics2D.OverlapCircleAll(transform.position, 1.0f);
+////			//hitObjects[0].SendMessage("TakeDamage", 1, SendMessageOptions.DontRequireReceiver);	//change to purely take damage as 1 hit kill
+////		Debug.Log("Hit" + hitObjects[0].name);
+////		}
+//	}
 
 	void OnTriggerEnter2D(Collider2D coll){
 		//check if floor or other player
