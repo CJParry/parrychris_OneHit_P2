@@ -10,6 +10,8 @@ public class PlayerOneBehaviour : MonoBehaviour
 	public float speed;
 	public int dashSpeed;
 	public float dashCooldown = 2;
+    public float dashLength = 0.5f;
+
 
 	private PlayerTwoBehaviour enemyScript;
 	public Collider2D[] attackHitboxes;
@@ -18,8 +20,11 @@ public class PlayerOneBehaviour : MonoBehaviour
 	public bool shieldUp = false;
 	private float moveVelocity;
 	private bool grounded = true;
+    private bool dashing = false;
+    private float startDashTime;
 	private Rigidbody2D rb2d;
 	private float nextDash = 1;
+    private float dashStop;
 
 	// Use this for initialization
 	void Start ()
@@ -45,7 +50,7 @@ public class PlayerOneBehaviour : MonoBehaviour
 		else if (Input.GetKeyDown (KeyCode.RightShift) && shieldUp == false) {    //melee
 			GameObject ChildGameObject = this.gameObject.transform.GetChild (1).gameObject;
 			ChildGameObject.GetComponent<SpriteRenderer> ().enabled = true;
-			LaunchAttack (attackHitboxes [0]);	
+			//LaunchAttack (attackHitboxes [0]);	
 
 		}
 		 else if (Input.GetKeyDown (KeyCode.RightAlt)) {						//block
@@ -57,6 +62,19 @@ public class PlayerOneBehaviour : MonoBehaviour
 	// Called every frame 
 	void FixedUpdate ()
 	{
+
+        if (dashing)
+        {
+            GameObject ChildGameObject = this.gameObject.transform.GetChild(1).gameObject;
+            ChildGameObject.GetComponent<SpriteRenderer>().enabled = true;
+            LaunchAttack(attackHitboxes[0]);
+            if (Time.time > dashStop)
+            {
+                ChildGameObject.GetComponent<SpriteRenderer>().enabled = false;
+                dashing = false;
+            }
+            return;
+        }
 		if (grounded) {
 			moveVelocity = 0;
 
@@ -102,14 +120,23 @@ public class PlayerOneBehaviour : MonoBehaviour
 		ChildGameObject.GetComponent<SpriteRenderer> ().enabled = shieldUp;
 	}
 
-	private void Dash ()
-	{
-		if (onRightSide) {
-			rb2d.AddForce (new Vector2 (-dashSpeed, 0));
-		} else {
-			rb2d.AddForce (new Vector2 (dashSpeed, 0));
-		}
-	}
+    private void Dash()
+    {
+        if (dashing)
+        {
+            return;
+        }
+        if (onRightSide)
+        {
+            rb2d.AddForce(new Vector2(-dashSpeed, 0));
+        }
+        else
+        {
+            rb2d.AddForce(new Vector2(dashSpeed, 0));
+        }
+        dashing = true;
+        dashStop = Time.time + dashLength;
+    }
 
 	private void Jump(){
 		//check player is grounded before jumping

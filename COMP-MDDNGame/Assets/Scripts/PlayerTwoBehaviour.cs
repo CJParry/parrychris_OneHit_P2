@@ -15,6 +15,7 @@ public class PlayerTwoBehaviour : MonoBehaviour
 	public float speed;
 	public int dashSpeed;
 	public float dashCooldown = 2;
+    public float dashLength = 2;
 
 	private PlayerOneBehaviour enemyScript;
 	public Collider2D[] attackHitboxes;
@@ -23,8 +24,11 @@ public class PlayerTwoBehaviour : MonoBehaviour
 	public bool shieldUp = false;
 	private float moveVelocity;
 	private bool grounded = true;
+    private bool dashing = false;
+    private float startDashTime;
 	private Rigidbody2D rb2d;
 	private float nextDash = 1;
+    private float dashStop;
 
 	// Use this for initialization
 	void Start ()
@@ -52,7 +56,7 @@ public class PlayerTwoBehaviour : MonoBehaviour
 		else if (Input.GetKeyDown (KeyCode.LeftShift) && shieldUp == false) {    //melee
 			GameObject ChildGameObject = this.gameObject.transform.GetChild (1).gameObject;
 			ChildGameObject.GetComponent<SpriteRenderer> ().enabled = true;
-			LaunchAttack (attackHitboxes [1]);	
+		//	LaunchAttack (attackHitboxes [1]);	
 
 		}
 		else if (Input.GetKeyDown (KeyCode.E)) {						//block
@@ -67,16 +71,27 @@ public class PlayerTwoBehaviour : MonoBehaviour
 				Flip ();
 			}
 		} else {
-			if (position.x >= enemyScript.transform.position.x) {
-				Flip ();
-			}
-
+            if (position.x >= enemyScript.transform.position.x)
+            {
+                Flip();
+            }
 		}
 	}
 
 	// Called every frame 
 	void FixedUpdate ()
 	{
+        Debug.Log("Grounded = " + grounded);
+        if(dashing){
+            GameObject ChildGameObject = this.gameObject.transform.GetChild(1).gameObject;
+            ChildGameObject.GetComponent<SpriteRenderer>().enabled = true;
+            LaunchAttack (attackHitboxes [1]);  
+            if(Time.time > dashStop){
+                ChildGameObject.GetComponent<SpriteRenderer>().enabled = false;
+                dashing = false;
+            }
+            return;
+        }
 		if (grounded) {
 			moveVelocity = 0;
 
@@ -88,7 +103,7 @@ public class PlayerTwoBehaviour : MonoBehaviour
 				moveVelocity = speed;										//move right
 
 			}
-			if (Input.GetKey (KeyCode.S) && Time.time > nextDash) {
+			if (Input.GetKey (KeyCode.S) && Time.time > nextDash && !dashing) {
 				nextDash = Time.time + dashCooldown;
 				Dash ();													//dash
 				return;
@@ -123,12 +138,19 @@ public class PlayerTwoBehaviour : MonoBehaviour
 	}
 
 	private void Dash ()
-	{
+    {
+        if(dashing){
+            return;
+        }
 		if (onRightSide) {
 			rb2d.AddForce (new Vector2 (-dashSpeed, 0));
 		} else {
 			rb2d.AddForce (new Vector2 (dashSpeed, 0));
 		}
+        dashing = true;
+        dashStop = Time.time + dashLength;
+       // startDashTime = Time.time;
+        Debug.Log("In dash");
 	}
 
 	private void Jump(){
