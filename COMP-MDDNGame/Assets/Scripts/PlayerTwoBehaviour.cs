@@ -139,9 +139,15 @@ public class PlayerTwoBehaviour : MonoBehaviour
 
 	private void Dash ()
     {
-        if(dashing){
+        if (dashing)
+        {
             return;
         }
+        if (shieldUp)
+        {
+            Block();
+        }
+      
 		if (onRightSide) {
 			rb2d.AddForce (new Vector2 (-dashSpeed, 0));
 		} else {

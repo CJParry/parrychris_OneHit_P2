@@ -126,6 +126,10 @@ public class PlayerOneBehaviour : MonoBehaviour
         {
             return;
         }
+        if (shieldUp)
+        {
+            Block();
+        }
         if (onRightSide)
         {
             rb2d.AddForce(new Vector2(-dashSpeed, 0));
