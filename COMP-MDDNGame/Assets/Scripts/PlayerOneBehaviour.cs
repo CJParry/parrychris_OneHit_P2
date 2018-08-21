@@ -25,6 +25,7 @@ public class PlayerOneBehaviour : MonoBehaviour
 	private Rigidbody2D rb2d;
 	private float nextDash = 1;
     private float dashStop;
+    private bool newGame;
 
 	// Use this for initialization
 	void Start ()
@@ -36,7 +37,7 @@ public class PlayerOneBehaviour : MonoBehaviour
 	// Called every frame
 	void Update ()
 	{
-		if (Input.GetKey (KeyCode.RightShift)) {
+		if (Input.GetKey (KeyCode.RightShift)) {                                //melee
 			LaunchAttack (attackHitboxes [0]);	
 		}
 		if (Input.GetKey (KeyCode.UpArrow)) {									//	jump
@@ -163,6 +164,8 @@ public class PlayerOneBehaviour : MonoBehaviour
 				continue;
 			}
 			Debug.Log ("Player One Wins!");
+            GameObject ChildGameObject = this.gameObject.transform.GetChild(2).gameObject;
+            ChildGameObject.GetComponent<SpriteRenderer>().enabled = false;
 			GameOver ();
 		}
 	}
