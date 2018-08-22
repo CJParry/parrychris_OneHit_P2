@@ -188,9 +188,9 @@ public class PlayerOneBehaviour : MonoBehaviour
     // Follow Two Transforms with a Fixed-Orientation Camera
     public void FixedCameraFollowSmooth()
     {
-        if (cam.transform.position.z < -15.5)
+        if (cam.transform.position.z < -10.5)
         {
-            cam.transform.SetPositionAndRotation(new Vector3(cam.transform.position.x, cam.transform.position.y, -15.4f), cam.transform.rotation);
+            cam.transform.SetPositionAndRotation(new Vector3(cam.transform.position.x, cam.transform.position.y, -10.4f), cam.transform.rotation);
         }
         if (cam.transform.position.z > -8.4)
         {
