@@ -195,6 +195,6 @@ public class PlayerTwoBehaviour : MonoBehaviour
 
 	private void GameOver ()
 	{
-		SceneManager.LoadScene ("MainScene", LoadSceneMode.Single);
+		SceneManager.LoadScene ("FinalMainScene", LoadSceneMode.Single);
 	}
 }
