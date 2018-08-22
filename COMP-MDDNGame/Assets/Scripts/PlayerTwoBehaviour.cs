@@ -81,7 +81,6 @@ public class PlayerTwoBehaviour : MonoBehaviour
 	// Called every frame 
 	void FixedUpdate ()
 	{
-        Debug.Log("Grounded = " + grounded);
         if(dashing){
             GameObject ChildGameObject = this.gameObject.transform.GetChild(1).gameObject;
             ChildGameObject.GetComponent<SpriteRenderer>().enabled = true;
