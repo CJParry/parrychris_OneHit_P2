@@ -29,6 +29,7 @@ public class PlayerTwoBehaviour : MonoBehaviour
 	private Rigidbody2D rb2d;
 	private float nextDash = 1;
     private float dashStop;
+    private bool onHead = false;
 
 	// Use this for initialization
 	void Start ()
@@ -40,10 +41,10 @@ public class PlayerTwoBehaviour : MonoBehaviour
 	// Called every frame
 	void Update ()
 	{
-
+        checkGrounded();
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            LaunchAttack(attackHitboxes[1]);
+            LaunchAttack(attackHitboxes[0]);
         }
 		if (Input.GetKey (KeyCode.W)) {									//	jump
 			Jump ();
@@ -84,10 +85,11 @@ public class PlayerTwoBehaviour : MonoBehaviour
         if(dashing){
             GameObject ChildGameObject = this.gameObject.transform.GetChild(1).gameObject;
             ChildGameObject.GetComponent<SpriteRenderer>().enabled = true;
-            LaunchAttack (attackHitboxes [1]);  
+            LaunchAttack (attackHitboxes [0]);  
             if(Time.time > dashStop){
                 ChildGameObject.GetComponent<SpriteRenderer>().enabled = false;
                 dashing = false;
+                grounded = true;
             }
             return;
         }
@@ -112,21 +114,32 @@ public class PlayerTwoBehaviour : MonoBehaviour
 		}
 	}
 
-	void OnTriggerEnter2D (Collider2D coll)
-	{
-		//check if floor or other player
-		if (coll.transform.tag.Contains ("Ground") || coll.transform.tag.Contains ("Head")) {
-			grounded = true;
-		}
-	}
+    void OnTriggerEnter2D(Collider2D coll)
+    {
+        //check if floor or other player
+        if (coll.transform.tag.Contains("Ground") || coll.transform.tag.Contains("Head"))
+        {
+            grounded = true;
+        }
+    }
 
 	void OnTriggerExit2D (Collider2D coll)
 	{
 		//check if floor or other player
-		if (coll.transform.tag.Contains ("Ground") || coll.transform.tag.Contains ("Head")) {
+        if (coll.transform.tag.Contains ("Ground") || coll.transform.tag.Contains ("Head")) {
 			grounded = false;
 		}
 	}
+
+    private void checkGrounded()
+    {
+        Debug.Log("Y value = " + gameObject.transform.position.y);
+        if (gameObject.transform.position.y < 1.35)
+        {
+            grounded = true;
+
+        }
+    }
 
 	private void Block(){
 		//toggle shield on/off

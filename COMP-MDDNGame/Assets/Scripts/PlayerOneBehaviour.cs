@@ -36,6 +36,7 @@ public class PlayerOneBehaviour : MonoBehaviour
 	// Called every frame
 	void Update ()
 	{
+        checkGrounded();
         FixedCameraFollowSmooth();
 		if (Input.GetKey (KeyCode.RightShift)) {
 			LaunchAttack (attackHitboxes [0]);	
@@ -73,6 +74,7 @@ public class PlayerOneBehaviour : MonoBehaviour
             {
                 ChildGameObject.GetComponent<SpriteRenderer>().enabled = false;
                 dashing = false;
+                grounded = true;
             }
             return;
         }
@@ -99,16 +101,18 @@ public class PlayerOneBehaviour : MonoBehaviour
 
 	void OnTriggerEnter2D (Collider2D coll)
 	{
-		//check if floor or other player
-		if (coll.transform.tag.Contains ("Ground") || coll.transform.tag.Contains ("Head")) {
-			grounded = true;
-		}
+        //check if floor or other player
+        if (coll.transform.tag.Contains("Ground") || coll.transform.tag.Contains("Head"))
+        {
+            grounded = true;
+        }
 	}
 
-	void OnTriggerExit2D (Collider2D coll)
-	{
-		//check if floor or other player
-		if (coll.transform.tag.Contains ("Ground") || coll.transform.tag.Contains ("Head")) {
+    void OnTriggerExit2D(Collider2D coll)
+    {
+        //check if floor or other player
+        if (coll.transform.tag.Contains("Ground") || coll.transform.tag.Contains("Head"))
+        {
 			grounded = false;
 		}
 	}
@@ -168,6 +172,14 @@ public class PlayerOneBehaviour : MonoBehaviour
 		}
 	} 
 
+    private void checkGrounded(){
+        Debug.Log("Y value = " + gameObject.transform.position.y);
+        if (gameObject.transform.position.y < 1.35)
+        {
+            grounded = true;
+        }
+    }
+
 	private void GameOver ()
 	{
 		SceneManager.LoadScene ("FinalMainScene", LoadSceneMode.Single);
@@ -178,20 +190,16 @@ public class PlayerOneBehaviour : MonoBehaviour
     {
         if (cam.transform.position.z < -15.5)
         {
-            Debug.Log("In cam.z < -15.5");
             cam.transform.SetPositionAndRotation(new Vector3(cam.transform.position.x, cam.transform.position.y, -15.4f), cam.transform.rotation);
-
         }
         if (cam.transform.position.z > -8.4)
         {
-            Debug.Log("In cam.z > -8.4");
               cam.transform.SetPositionAndRotation(new Vector3(cam.transform.position.x, cam.transform.position.y, -8.4f), cam.transform.rotation);
-
         }
         Transform t1 = this.gameObject.transform;
         Transform t2 = enemy.gameObject.transform;
         // How many units should we keep from the players
-        float zoomFactor = 0.6f;
+        float zoomFactor = 0.7f;
         float followTimeDelta = 0.2f;
 
         // Midpoint we're after
@@ -203,20 +211,16 @@ public class PlayerOneBehaviour : MonoBehaviour
          
         // Move camera a certain distance
         Vector3 cameraDestination = midpoint - cam.transform.forward * distance * zoomFactor;
-      //  cameraDestination.y += 1.8f;
+        cameraDestination.y += 0.2f;
        
        
-        // You specified to use MoveTowards instead of Slerp
+        //Move the camera from original position to cameraDestination
         cam.transform.position = Vector3.Slerp(cam.transform.position, cameraDestination, followTimeDelta);
 
         // Snap when close enough to prevent annoying slerp behavior
         if ((cameraDestination - cam.transform.position).magnitude <= 0.05f)
             cam.transform.position = cameraDestination;
-        
-        //camera z not go over -6
-        //camera z not go under -15.6
-       // cam.z = 1;
-        //cam.transform.position.z = 1;
+
 
     }
 }

@@ -459,60 +459,6 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc138ca6b1a354a22870ab168f8c251c, type: 3}
   m_IsPrefabAsset: 0
---- !u!1 &135663280
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 135663282}
-  - component: {fileID: 135663281}
-  m_Layer: 0
-  m_Name: MeleeRight
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!61 &135663281
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 135663280}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 3.7284098, y: -0.616632}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.0119429, y: 0.91320324}
-  m_EdgeRadius: 0
---- !u!4 &135663282
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 135663280}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 20.2, y: -3.0461888, z: 0.29697657}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 250419601}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &174512439
 GameObject:
   m_ObjectHideFlags: 0
@@ -1290,7 +1236,6 @@ Transform:
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_Children:
   - {fileID: 1986714498}
-  - {fileID: 135663282}
   m_Father: {fileID: 1053227046}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2126,60 +2071,6 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d58037af810b4021ac921a71033e575, type: 3}
   m_IsPrefabAsset: 0
---- !u!1 &443612777
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 443612779}
-  - component: {fileID: 443612778}
-  m_Layer: 0
-  m_Name: MeleeLeft
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!61 &443612778
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 443612777}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 6.67808, y: -0.616632}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.011, y: 0.91320324}
-  m_EdgeRadius: 0
---- !u!4 &443612779
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 443612777}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 14.3, y: -3.0461888, z: 0.29697657}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1086394226}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &446267167
 Prefab:
   m_ObjectHideFlags: 0
@@ -4211,8 +4102,8 @@ GameObject:
   - component: {fileID: 882408434}
   - component: {fileID: 882408433}
   m_Layer: 0
-  m_Name: MeleeRight
-  m_TagString: Untagged
+  m_Name: Melee
+  m_TagString: Melee
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4253,7 +4144,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1086394226}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &884090603
 Prefab:
@@ -4872,7 +4763,6 @@ MonoBehaviour:
   cam: {fileID: 1742281765}
   attackHitboxes:
   - {fileID: 1986714499}
-  - {fileID: 135663281}
   onRightSide: 1
   shieldUp: 0
 --- !u!61 &1053227048
@@ -5168,7 +5058,6 @@ Transform:
   m_LocalPosition: {x: -112.31169, y: 19.941332, z: -0.39255348}
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_Children:
-  - {fileID: 443612779}
   - {fileID: 882408434}
   m_Father: {fileID: 1565138153}
   m_RootOrder: 3
@@ -7305,7 +7194,6 @@ MonoBehaviour:
   dashCooldown: 3
   dashLength: 0.5
   attackHitboxes:
-  - {fileID: 443612778}
   - {fileID: 882408433}
   onRightSide: 0
   shieldUp: 0
@@ -9152,8 +9040,8 @@ GameObject:
   - component: {fileID: 1986714498}
   - component: {fileID: 1986714499}
   m_Layer: 0
-  m_Name: MeleeLeft
-  m_TagString: Untagged
+  m_Name: Melee
+  m_TagString: Melee
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
