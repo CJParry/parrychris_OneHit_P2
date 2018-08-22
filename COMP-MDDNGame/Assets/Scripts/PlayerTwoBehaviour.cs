@@ -29,12 +29,15 @@ public class PlayerTwoBehaviour : MonoBehaviour
 	private Rigidbody2D rb2d;
 	private float nextDash = 1;
     private float dashStop;
-    private bool onHead = false;
+
+    public Animator animator;
+
 
 	// Use this for initialization
 	void Start ()
 	{
 		rb2d = GetComponent<Rigidbody2D> ();
+        animator = GetComponent<Animator>();
 		enemyScript = enemy.GetComponent<PlayerOneBehaviour> ();
 	}
 
@@ -45,23 +48,33 @@ public class PlayerTwoBehaviour : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift))
         {
             LaunchAttack(attackHitboxes[0]);
+
+           // animator.SetBool("Jab_attack", true);    //set animator variable Jab_attack to true
+
         }
 		if (Input.GetKey (KeyCode.W)) {									//	jump
+            animator.SetBool("isJumping", true);        //sets animator varialbe isJumping to true
+            animator.SetBool("Grounded", false);
 			Jump ();
+
+
 		}
 		else if (Input.GetKeyUp (KeyCode.LeftShift) && shieldUp == false) {    //melee
-			GameObject ChildGameObject = this.gameObject.transform.GetChild (1).gameObject;
-			ChildGameObject.GetComponent<SpriteRenderer> ().enabled = false;
+
+            animator.SetBool("Jab_attack", false);    //set animator variable Jab_attack to false
 
 		}
 		else if (Input.GetKeyDown (KeyCode.LeftShift) && shieldUp == false) {    //melee
-			GameObject ChildGameObject = this.gameObject.transform.GetChild (1).gameObject;
-			ChildGameObject.GetComponent<SpriteRenderer> ().enabled = true;
+			
+             animator.SetBool("Jab_attack", true);    //set animator variable Jab_attack to true
+
 		//	LaunchAttack (attackHitboxes [1]);	
 
 		}
 		else if (Input.GetKeyDown (KeyCode.E)) {						//block
 			Block();
+
+
 		}
 
 		//check if players have passed each other
@@ -84,17 +97,22 @@ public class PlayerTwoBehaviour : MonoBehaviour
 	{
         if(dashing){
             GameObject ChildGameObject = this.gameObject.transform.GetChild(1).gameObject;
-            ChildGameObject.GetComponent<SpriteRenderer>().enabled = true;
             LaunchAttack (attackHitboxes [0]);  
             if(Time.time > dashStop){
-                ChildGameObject.GetComponent<SpriteRenderer>().enabled = false;
+               // ChildGameObject.GetComponent<SpriteRenderer>().enabled = false;
                 dashing = false;
                 grounded = true;
+
+                animator.SetBool("Dash_Attack", false);     //set dash attack variable in animator to false
+
             }
             return;
         }
 		if (grounded) {
 			moveVelocity = 0;
+
+            animator.SetBool("Grounded", true); //sets Grounded variable in Animator to true
+
 
 			if (Input.GetKey (KeyCode.A)) {
 				moveVelocity = -speed;							  			//move left
@@ -107,6 +125,9 @@ public class PlayerTwoBehaviour : MonoBehaviour
 			if (Input.GetKey (KeyCode.S) && Time.time > nextDash && !dashing) {
 				nextDash = Time.time + dashCooldown;
 				Dash ();													//dash
+
+                animator.SetBool("Dash_Attack", true);  //Set dash attack variable in animator to true
+
 				return;
 			}
 			rb2d.velocity = new Vector2 (moveVelocity, 
@@ -136,14 +157,17 @@ public class PlayerTwoBehaviour : MonoBehaviour
         Debug.Log("Y value = " + gameObject.transform.position.y);
         if (gameObject.transform.position.y < 1.35)
         {
+            animator.SetBool("Grounded", true);
             grounded = true;
-
         }
     }
 
 	private void Block(){
 		//toggle shield on/off
 		shieldUp = !shieldUp;
+
+        animator.SetBool("Block", shieldUp);    //sets animator variable Block to true
+
 
 		GameObject ChildGameObject = this.gameObject.transform.GetChild (0).gameObject;
 		ChildGameObject.GetComponent<SpriteRenderer> ().enabled = shieldUp;
@@ -176,6 +200,10 @@ public class PlayerTwoBehaviour : MonoBehaviour
 		if (grounded) {
 			rb2d.velocity = new Vector2 (
 				rb2d.velocity.x, jump);
+
+            animator.SetBool("isGrounded", true);   //set isGrounded variable to true in animator
+            animator.SetBool("isJumping", false);   //set isJumping Variable to false in animator
+
 		}
 	}
 
