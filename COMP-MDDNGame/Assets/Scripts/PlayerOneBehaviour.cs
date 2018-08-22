@@ -191,7 +191,7 @@ public class PlayerOneBehaviour : MonoBehaviour
         Transform t1 = this.gameObject.transform;
         Transform t2 = enemy.gameObject.transform;
         // How many units should we keep from the players
-        float zoomFactor = 0.8f;
+        float zoomFactor = 0.6f;
         float followTimeDelta = 0.2f;
 
         // Midpoint we're after
@@ -203,7 +203,7 @@ public class PlayerOneBehaviour : MonoBehaviour
          
         // Move camera a certain distance
         Vector3 cameraDestination = midpoint - cam.transform.forward * distance * zoomFactor;
-        cameraDestination.y += 1.8f;
+      //  cameraDestination.y += 1.8f;
        
        
         // You specified to use MoveTowards instead of Slerp
