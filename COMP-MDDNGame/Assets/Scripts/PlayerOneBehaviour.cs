@@ -13,10 +13,9 @@ public class PlayerOneBehaviour : MonoBehaviour
     public int dashSpeed;
     public float dashCooldown = 2;
     public float dashLength = 2;
-
+    public float gameOverWait = 3;
     private PlayerTwoBehaviour enemyScript;
     public Collider2D[] attackHitboxes;
-
     public bool onRightSide = true;
     public bool shieldUp = false;
     private float moveVelocity;
@@ -28,7 +27,8 @@ public class PlayerOneBehaviour : MonoBehaviour
     private float dashStop;
     public Camera cam;
     public Canvas canvas;
-
+    public bool gameOver = false;
+    private float gameOverTime;
 
     public Animator animator;
 
@@ -46,6 +46,10 @@ public class PlayerOneBehaviour : MonoBehaviour
     {
         checkGrounded();
         FixedCameraFollowSmooth();
+        if (Input.GetKey(KeyCode.Delete))
+        {
+            GameOver();
+        }
         if (Input.GetKey(KeyCode.RightShift))
         {
             LaunchAttack(attackHitboxes[0]);
@@ -101,6 +105,10 @@ public class PlayerOneBehaviour : MonoBehaviour
     // Called every frame 
     void FixedUpdate()
     {
+        if (gameOver)
+        {
+            GameOver();
+        }
         if (dashing)
         {
            // GameObject ChildGameObject = this.gameObject.transform.GetChild(1).gameObject;
@@ -256,9 +264,25 @@ public class PlayerOneBehaviour : MonoBehaviour
 
     private void GameOver()
     {
-        //GameObject child = canvas.transform.GetChild(0).gameObject;
-       // child.gameObject.GetComponent<Text>().enabled = true;
-        SceneManager.LoadScene("FinalMainScene", LoadSceneMode.Single);
+        if (!gameOver)
+        {
+            SetGameOver();
+             enemyScript.SetGameOver();
+            GameObject child = canvas.transform.GetChild(0).gameObject;
+
+            child.GetComponent<Text>().enabled = true;
+        }
+        else if (Time.time > gameOverTime + gameOverWait)
+        {
+            SceneManager.LoadScene("FinalMainScene", LoadSceneMode.Single);
+        }
+    }
+
+    public void SetGameOver()
+    {
+        gameOver = true;
+        gameOverTime = Time.time;
+
     }
 
 //     Follow Two Transforms with a Fixed-Orientation Camera
