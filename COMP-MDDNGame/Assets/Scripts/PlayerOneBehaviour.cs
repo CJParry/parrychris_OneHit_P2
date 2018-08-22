@@ -73,7 +73,7 @@ public class PlayerOneBehaviour : MonoBehaviour
 
         }
         else if (Input.GetKeyDown(KeyCode.RightAlt))
-        {                       //block
+        {                       //block 
             Block();
 
 
@@ -227,24 +227,21 @@ public class PlayerOneBehaviour : MonoBehaviour
 
     private void LaunchAttack(Collider2D col)
     {
-        if (cam.transform.position.z < -10.5)
-        {
-            cam.transform.SetPositionAndRotation(new Vector3(cam.transform.position.x, cam.transform.position.y, -10.4f), cam.transform.rotation);
+       
             Collider2D[] cols = Physics2D.OverlapBoxAll(
                 col.bounds.center,
                 col.bounds.extents,
                 0,
                 LayerMask.GetMask("Hitbox"));
 
-            foreach (Collider2D c in cols)
+        foreach (Collider2D c in cols)
+        {
+            if (c.transform.parent.parent == transform || enemyScript.shieldUp == true)
             {
-                if (c.transform.parent.parent == transform || enemyScript.shieldUp == true)
-                {
-                    continue;
-                }
-                Debug.Log("Player One Wins!");
-                GameOver();
+                continue;
             }
+            Debug.Log("Player One Wins!");
+            GameOver();
         }
     }
 
@@ -259,8 +256,8 @@ public class PlayerOneBehaviour : MonoBehaviour
 
     private void GameOver()
     {
-        GameObject child = canvas.transform.GetChild(0).gameObject;
-        child.gameObject.GetComponent<Text>().enabled = true;
+        //GameObject child = canvas.transform.GetChild(0).gameObject;
+       // child.gameObject.GetComponent<Text>().enabled = true;
         SceneManager.LoadScene("FinalMainScene", LoadSceneMode.Single);
     }
 
