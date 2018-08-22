@@ -1,13 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 using UnityEngine.SceneManagement;
 
 public class PlayerOneBehaviour : MonoBehaviour
 {
     public GameObject enemy;
     public float jump;
-    public float speed;
+    public float speed; 
     public int dashSpeed;
     public float dashCooldown = 2;
     public float dashLength = 2;
@@ -25,6 +27,7 @@ public class PlayerOneBehaviour : MonoBehaviour
     private float nextDash = 1;
     private float dashStop;
     public Camera cam;
+    public Canvas canvas;
 
 
     public Animator animator;
@@ -256,6 +259,8 @@ public class PlayerOneBehaviour : MonoBehaviour
 
     private void GameOver()
     {
+        GameObject child = canvas.transform.GetChild(0).gameObject;
+        child.gameObject.GetComponent<Text>().enabled = true;
         SceneManager.LoadScene("FinalMainScene", LoadSceneMode.Single);
     }
 

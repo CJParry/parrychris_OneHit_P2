@@ -29,6 +29,7 @@ public class PlayerTwoBehaviour : MonoBehaviour
 	private Rigidbody2D rb2d;
 	private float nextDash = 1;
     private float dashStop;
+    public Canvas canvas;
 
     public Animator animator;
 
