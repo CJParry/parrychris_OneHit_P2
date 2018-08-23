@@ -14,7 +14,7 @@ Readme.md with:
 Both players play on the same keyboard. Player one is contolled with the arrow keys and Player two is controlled with WASD.  
 Each players moveset consists of a short attack, dash-attack, jump, move and block.
 Level begins with both players on opposite sides. Round is over when one player scores successful damage on the other player. This makes the sccene restart.
-Players use 2 scripts as in future iterations we are likely to give different characters different stats/moves.
+Players use 2 scripts as in future iterations we are likely to give different characters different stats/moves. Camera follows both players pan & zoom. Background clouds loops past  
 
 # Most technically interesting/challenging parts of prototype  
 - Merging designers 3d background and other designers sprites/animatons into project
