@@ -311,7 +311,7 @@ public class PlayerOneBehaviour : MonoBehaviour
 
             // Move camera a certain distance
             Vector3 cameraDestination = midpoint - cam.transform.forward * distance * zoomFactor;
-            cameraDestination.y += 0.2f;
+            cameraDestination.y += 1f;
 
 
             //Move the camera from original position to cameraDestination
