@@ -88,10 +88,7 @@ public class PlayerTwoBehaviour : MonoBehaviour
         {
             GameOver();
         }
-        //Check && flip players if they have passed each other
-        CheckFlip();
     }
-
 
     // Called every frame 
     void FixedUpdate()
@@ -237,35 +234,6 @@ public class PlayerTwoBehaviour : MonoBehaviour
             //Debug.Log("Player One Wins!");
             GameOver();
         }
-    }
-
-    private void CheckFlip()
-    {
-        //check if players have passed each other
-        Vector3 position = transform.position;
-        if (onRightSide == true)
-        {
-            if (position.x < enemyScript.transform.position.x)
-            {
-                Flip();
-            }
-        }
-        else
-        {
-            if (position.x >= enemyScript.transform.position.x)
-            {
-                Flip();
-            }
-        }
-    }
-
-    void Flip()
-    {
-        //flip both charcters
-        transform.Rotate(new Vector3(0, 180, 0));
-        enemyScript.transform.Rotate(new Vector3(0, 180, 0));
-        enemyScript.setOnRightSide();
-        onRightSide = !onRightSide;
     }
 
     private void GameOver()

@@ -189,6 +189,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 19606853}
+  - component: {fileID: 19606854}
   m_Layer: 0
   m_Name: Players
   m_TagString: Untagged
@@ -211,6 +212,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &19606854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 19606852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a937640e44dffbd4a8e1e7cbfb47155e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerOne: {fileID: 1053227042}
+  PlayerTwo: {fileID: 1565138146}
 --- !u!1 &31454584
 GameObject:
   m_ObjectHideFlags: 0
@@ -3035,16 +3049,16 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 678595451}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -428.7}
-  m_LocalScale: {x: 0.05, y: 0.05, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -1.159}
+  m_LocalScale: {x: 0.01, y: 0.01, z: 1}
   m_Children: []
   m_Father: {fileID: 721930784}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -592.8, y: -268.2}
-  m_SizeDelta: {x: 1200, y: 187.386}
+  m_AnchoredPosition: {x: -617.28, y: -259.94}
+  m_SizeDelta: {x: 20840.27, y: 4425.64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &678595453
 MonoBehaviour:
@@ -3076,7 +3090,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: Blue Player Wins!
 --- !u!222 &678595454
@@ -4643,7 +4657,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1047359558}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -576.71}
+  m_LocalPosition: {x: 0, y: 0, z: -425.7}
   m_LocalScale: {x: 0.050012097, y: 0.050012097, z: 0.99998873}
   m_Children: []
   m_Father: {fileID: 721930784}
@@ -4651,7 +4665,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -700.39996, y: -355.59998}
+  m_AnchoredPosition: {x: -593.1, y: -270.6}
   m_SizeDelta: {x: 1300, y: 187.386}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1047359560
@@ -4660,7 +4674,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1047359558}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -4684,7 +4698,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: Green Player Wins!
 --- !u!222 &1047359561
@@ -4840,7 +4854,6 @@ MonoBehaviour:
   jump: 30
   playerSpeed: 9
   enemy: {fileID: 1565138146}
-  cam: {fileID: 1742281765}
   canvas: {fileID: 721930783}
   attackHitboxes:
   - {fileID: 1986714499}
@@ -5849,6 +5862,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a5c0c13fa7b343109387ba6f0c99d73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 0.5
+  duration: 0
 --- !u!64 &1304913230
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -6979,7 +6994,6 @@ MonoBehaviour:
   jump: 30
   playerSpeed: 9
   enemy: {fileID: 1053227042}
-  cam: {fileID: 0}
   canvas: {fileID: 721930783}
   attackHitboxes:
   - {fileID: 882408433}
@@ -8375,7 +8389,7 @@ GameObject:
   - component: {fileID: 1869987518}
   - component: {fileID: 1869987519}
   m_Layer: 0
-  m_Name: Indicator
+  m_Name: PlayerIndicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9006,7 +9020,7 @@ GameObject:
   - component: {fileID: 2087475141}
   - component: {fileID: 2087475142}
   m_Layer: 0
-  m_Name: Indicator
+  m_Name: PlayerIndicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
