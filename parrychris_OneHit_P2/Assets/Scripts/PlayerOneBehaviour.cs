@@ -4,20 +4,24 @@ using UnityEngine.SceneManagement;
 
 public class PlayerOneBehaviour : MonoBehaviour
 {
-    public GameObject enemy;
-    public Camera cam;
-    public Canvas canvas;
-    public Collider2D[] attackHitboxes;
+    
 
     public int dashSpeed;
     public float dashCooldown = 2;
     public float dashLength = 2;
 
     public float jump;
-    public float playerSpeed; 
+    public float playerSpeed;
+
+    public GameObject enemy;
+    public Camera cam;
+    public Canvas canvas;
+    public Collider2D[] attackHitboxes;
+
+    private bool onRightSide = true;
+    private bool shieldUp = false;
+
     
-    public bool onRightSide = true;
-    public bool shieldUp = false;
 
     private Rigidbody2D rb2d;
     private PlayerTwoBehaviour enemyScript;
@@ -263,4 +267,23 @@ public class PlayerOneBehaviour : MonoBehaviour
         SceneManager.LoadScene("FinalMainScene", LoadSceneMode.Single);
     }
 
+    public bool getOnRightSide()
+    {
+        return onRightSide;
+    }
+
+    public bool getShieldUp()
+    {
+        return shieldUp;
+    }
+
+    public void setOnRightSide()
+    {
+        onRightSide = !onRightSide;
+    }
+
+    public void setShieldUp(bool shield)
+    {
+        shieldUp = shield;
+    }
 }

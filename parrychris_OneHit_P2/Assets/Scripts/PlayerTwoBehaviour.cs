@@ -217,7 +217,7 @@ public class PlayerTwoBehaviour : MonoBehaviour
 			LayerMask.GetMask ("Hitbox"));
 
 		foreach (Collider2D c in cols) {
-			if (c.transform.parent.parent == transform || enemyScript.shieldUp == true) {
+			if (c.transform.parent.parent == transform || enemyScript.getShieldUp() == true) {
 				continue;
 			}
 			Debug.Log ("Player Two Wins!");
@@ -230,7 +230,7 @@ public class PlayerTwoBehaviour : MonoBehaviour
 		//flip both charcters
 		transform.Rotate (new Vector3 (0, 180, 0));
 		enemyScript.transform.Rotate (new Vector3 (0, 180, 0));
-		enemyScript.onRightSide = !enemyScript.onRightSide;
+        enemyScript.setOnRightSide();
 		onRightSide = !onRightSide;
 	}
 
