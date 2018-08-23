@@ -18,6 +18,8 @@ Players use 2 scripts as in future iterations we are likely to give different ch
 
 # Most technically interesting/challenging parts of prototype  
 - Merging designers 3d background and other designers sprites/animatons into project
+- Cloning from git, background often doesnt work
+- Getting UI to work - only works in Unity
 
 ## Instructions to copy repository locally:  
 * Download Git  
