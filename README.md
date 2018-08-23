@@ -18,7 +18,9 @@ Most variables which may need tuning in the future are public. This is so the de
 I had a lot of trouble implementing a canvas with UI components, such as text. In the end I used a sprite on top of each player as an indicator. The players indicator dissapears when they lose. This should be improved in the next iteration.   
 
 #### Game Loop
-The game begins with players on opposite sides. The round is over when one player scores successful damage on the other player. This makes the scene restart, and essentially begins the next round. Each round take from less than 1 second, to several seconds long. It is a faced paced game, hence the short round times. The game is in the same state at the beginning of every round.   
+The game begins with players on opposite sides. The round is over when one player scores successful damage on the other player. This makes the scene restart, and essentially begins the next round.   
+
+Each round take from less than 1 second, to several seconds long. It is a faced paced game, hence the short round times. The game is in the same state at the beginning of every round.   
 
 Although there is no total wins so far count, this is to be implemented at a later date.  
 
@@ -26,7 +28,8 @@ Although there is no total wins so far count, this is to be implemented at a lat
 - Merging designers 3D background and other designers sprites/animations into project.
 - Getting UI to work - only works in Unity. Settled for a coloured sprite indicator to show game state.
 - Getting the camera working with 3D scene.
-- Team-members using different versions caused a range of issues, such as missing assets.
+- Implementing the first attack move (close-range melee) was difficult, and the learning curve was steep. Once the first was done, however, the rest of the moves were done much faster.
+- Team-members using different versions of Unity caused a range of issues, such as missing assets. Most of the issues were never solved.
 
 ### Controls && MoveSet:  
 #### Blue Player:  
