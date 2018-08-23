@@ -1,9 +1,10 @@
 # One Hit Prototype    
-"One Hit" is a fast paced 2D fighting game, with a 3D background. The twist is that it only requires one attack to defeat the other player. 
+"One Hit" is a fast paced 2D fighting game, with a 3D background. The twist is that it only requires one successful attack to defeat the other player, winning the round. 
 
-This game, developed in Unity, is played by two people sharing one keyboard. The blue player is controlled with the arrow keys and the green player is controlled with WASD. Each players moveset consists of a short attack, dash-attack, jump, move and block.  
+## Architecture  
+This game, developed in Unity, is played by two people sharing one keyboard. The blue player is controlled with the arrow keys and the green player is controlled with WASD. Each players moveset consists of a short attack, dash-attack, jump, move and block.  The dash attack is on a 3 second cooldown, and is seen as the 'Over Powered' move.  
 
-### Architecture (Game loop, level structure)  
+### Level structure  
 The players have rigidbodys, box colliders and trigger box colliders. There are head and body trigger colliders. The head colliders are so player can jump off other players head. This works by the trigger setting the top players 'grounded' boolean to true, allowing them to jump.  
 
 The game uses one camera which updates and adjusts its position in response to both players positions. From a viewers perspective, tyh camera follows the players horizontally, zooming in and out as the players get closer or further away. This helps give the 3D background effect.   
@@ -16,10 +17,10 @@ Most variables which may need tuning in the future are public This is so the des
 
 I had a lot of trouble implementing a canvas with UI components, such as text. In the end I used a sprite on top of each player as an indicator. The players indicator dissapears when they lose. This should be improved in the next iteration.   
 
+### Game Loop
 The game begins with players on opposite sides. The round is over when one player scores successful damage on the other player. This makes the scene restart, and essentially begins the next round.  
 
-Although there is no total wins so far count, this is to be implemented at a later date.
-
+Although there is no total wins so far count, this is to be implemented at a later date.  
 
 ### Most Technically Interesting/Challenging Parts of Prototype  
 - Merging designers 3D background and other designers sprites/animations into project.
