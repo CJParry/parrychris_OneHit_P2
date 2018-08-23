@@ -4,8 +4,8 @@ using UnityEngine.SceneManagement;
 
 public class PlayerOneBehaviour : MonoBehaviour
 {
-    
 
+    //Public variables can be set in Unity Inspector
     public int dashSpeed;
     public float dashCooldown = 2;
     public float dashLength = 2;
@@ -17,31 +17,29 @@ public class PlayerOneBehaviour : MonoBehaviour
     public Camera cam;
     public Canvas canvas;
     public Collider2D[] attackHitboxes;
-
-    private bool onRightSide = true;
-    private bool shieldUp = false;
-
-    
+    public Animator animator;
 
     private Rigidbody2D rb2d;
     private PlayerTwoBehaviour enemyScript;
+
     private bool grounded = true;
     private bool dashing = false;
+    private bool shieldUp = false;
 
+    //Is the player on the right hand side of the other player?
+    private bool onRightSide = true;
+    //Used to calculate movement vector for horizontal movement
     private float moveVelocity;
+
     //Time the players next dash is available
     private float nextDash = 1;
-    //Time the player will stop dashing
+     //Time the player will stop dashing
     private float dashStop;
-
-
-
-    public Animator animator;
-
-
+    
     // Use this for initialization
     void Start()
     {
+        //Initializes the players RigidBody, Animator and EnemyScript
         rb2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         enemyScript = enemy.GetComponent<PlayerTwoBehaviour>();
@@ -50,62 +48,47 @@ public class PlayerOneBehaviour : MonoBehaviour
     // Called every frame
     void Update()
     {
+        //Check if player is on ground, set variable if so
         checkGrounded();
-        if (Input.GetKey(KeyCode.Delete))
+
+        //  Jump
+        if (Input.GetKey(KeyCode.UpArrow))             
+        {   //sets animator variables to true
+            animator.SetBool("isJumping", true);        
+            animator.SetBool("Grounded", false);
+            Jump();
+        }
+        //Melee
+        //There are 3 melee cases - KeyUp, KeyDown, Key
+        else if (Input.GetKeyUp(KeyCode.RightShift) && shieldUp == false)
+        {    //KeyUp is when releasing melee, turning off animation
+            animator.SetBool("Jab_attack", false);
+        }
+        else if (Input.GetKeyDown(KeyCode.RightShift) && shieldUp == false)
+        {    //KeyDown is beginning of melee animation and launchAttack
+            animator.SetBool("Jab_attack", true);    
+            LaunchAttack(attackHitboxes[0]);
+        }
+        else if (Input.GetKey(KeyCode.RightShift))
+        {    //Key is when holding attack
+             //May remove this option in future
+            LaunchAttack(attackHitboxes[0]);
+        }
+        //Block 
+        else if (Input.GetKeyDown(KeyCode.RightAlt))
+        {                       
+            Block();
+        }
+        //Restart button (for development)
+        else if (Input.GetKey(KeyCode.Delete))
         {
             GameOver();
         }
-        if (Input.GetKey(KeyCode.RightShift))
-        {
-            LaunchAttack(attackHitboxes[0]);
-        }
-        if (Input.GetKey(KeyCode.UpArrow))
-        {                                   //  jump
-            animator.SetBool("isJumping", true);        //sets animator varialbe isJumping to true
-            animator.SetBool("Grounded", false);
-            Jump();
-
-
-        }
-        else if (Input.GetKeyUp(KeyCode.RightShift) && shieldUp == false)
-        {    //melee
-
-            animator.SetBool("Jab_attack", false);    //set animator variable Jab_attack to false
-
-        }
-        else if (Input.GetKeyDown(KeyCode.RightShift) && shieldUp == false)
-        {    //melee
-
-            animator.SetBool("Jab_attack", true);    //set animator variable Jab_attack to true
-
-            //  LaunchAttack (attackHitboxes [1]);  
-
-        }
-        else if (Input.GetKeyDown(KeyCode.RightAlt))
-        {                       //block 
-            Block();
-
-
-        }
-
-        //check if players have passed each other
-        Vector3 position = transform.position;
-
-        if (onRightSide == true)
-        {
-            if (position.x < enemyScript.transform.position.x)
-            {
-                Flip();
-            }
-        }
-        else
-        {
-            if (position.x >= enemyScript.transform.position.x)
-            {
-                Flip();
-            }
-        }
+        //Check && flip players if they have passed each other
+        CheckFlip();
     }
+
+   
 
     // Called every frame 
     void FixedUpdate()
@@ -248,6 +231,26 @@ public class PlayerOneBehaviour : MonoBehaviour
             }
             Debug.Log("Player One Wins!");
             GameOver();
+        }
+    }
+
+    private void CheckFlip()
+    {
+        //check if players have passed each other
+        Vector3 position = transform.position;
+        if (onRightSide == true)
+        {
+            if (position.x < enemyScript.transform.position.x)
+            {
+                Flip();
+            }
+        }
+        else
+        {
+            if (position.x >= enemyScript.transform.position.x)
+            {
+                Flip();
+            }
         }
     }
 

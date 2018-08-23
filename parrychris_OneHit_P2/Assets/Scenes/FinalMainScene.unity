@@ -4834,18 +4834,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4081f1b24ae449289012ac26f9caa38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 1565138146}
-  jump: 30
-  speed: 9
   dashSpeed: 5000
   dashCooldown: 3
   dashLength: 0.5
-  attackHitboxes:
-  - {fileID: 1986714499}
-  onRightSide: 1
-  shieldUp: 0
+  jump: 30
+  playerSpeed: 9
+  enemy: {fileID: 1565138146}
   cam: {fileID: 0}
   canvas: {fileID: 0}
+  attackHitboxes:
+  - {fileID: 1986714499}
   animator: {fileID: 0}
 --- !u!61 &1053227048
 BoxCollider2D:
