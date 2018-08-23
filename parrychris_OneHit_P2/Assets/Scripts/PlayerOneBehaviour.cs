@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerOneBehaviour : MonoBehaviour
 {
@@ -51,8 +52,13 @@ public class PlayerOneBehaviour : MonoBehaviour
         //Check if player is on ground, set variable if so
         checkGrounded();
 
+        if (dashing)
+        {
+            Dash();
+        }
+
         //  Jump
-        if (Input.GetKey(KeyCode.UpArrow))             
+         if (Input.GetKey(KeyCode.UpArrow))             
         {   //sets animator variables to true
             animator.SetBool("isJumping", true);        
             animator.SetBool("Grounded", false);
@@ -88,50 +94,38 @@ public class PlayerOneBehaviour : MonoBehaviour
         CheckFlip();
     }
 
-   
-
+    
     // Called every frame 
     void FixedUpdate()
     {
-        if (dashing)
-        {
-            LaunchAttack(attackHitboxes[0]);
-            if (Time.time > dashStop)
-            {
-                dashing = false;
-                grounded = true;
-
-                animator.SetBool("Dash_Attack", false);     //set dash attack variable in animator to false
-
-            }
-            return;
-        }
         if (grounded)
         {
             moveVelocity = 0;
+            //set Grounded variable in Animator to true
+            animator.SetBool("Grounded", true);
 
-            animator.SetBool("Grounded", true); //sets Grounded variable in Animator to true
-
-
+            //move left
             if (Input.GetKey(KeyCode.LeftArrow))
             {
-                moveVelocity = -playerSpeed;                                      //move left
-
+                moveVelocity = -playerSpeed;                                      
             }
+            //move right
             if (Input.GetKey(KeyCode.RightArrow))
             {
-                moveVelocity = playerSpeed;                                       //move right
-
+                moveVelocity = playerSpeed;                                       
             }
+            //Dash
             if (Input.GetKey(KeyCode.DownArrow) && Time.time > nextDash && !dashing)
             {
+                //Set the time for next earliest dash
                 nextDash = Time.time + dashCooldown;
-                Dash();                                                 //dash
+                //Set dash attack variable in animator to true
+                animator.SetBool("Dash_Attack", true);  
 
-                animator.SetBool("Dash_Attack", true);  //Set dash attack variable in animator to true
-
+                Dash();                                                 
                 return;
             }
+            //Move the player by moving iuts Rigidbody component
             rb2d.velocity = new Vector2(moveVelocity,
                 rb2d.velocity.y);
         }
@@ -155,6 +149,7 @@ public class PlayerOneBehaviour : MonoBehaviour
         }
     }
 
+    //Check to see if player grounded, update booleans if so
     private void checkGrounded()
     {
         Debug.Log("Y value = " + gameObject.transform.position.y);
@@ -169,10 +164,9 @@ public class PlayerOneBehaviour : MonoBehaviour
     {
         //toggle shield on/off
         shieldUp = !shieldUp;
-
-        animator.SetBool("Block", shieldUp);    //sets animator variable Block to true
-
-
+        //set animator variable Block to true
+        animator.SetBool("Block", shieldUp);   
+        //Activate blue shield sprite
         GameObject ChildGameObject = this.gameObject.transform.GetChild(0).gameObject;
         ChildGameObject.GetComponent<SpriteRenderer>().enabled = shieldUp;
     }
@@ -181,13 +175,23 @@ public class PlayerOneBehaviour : MonoBehaviour
     {
         if (dashing)
         {
-            return;
+            //Checkif player should stop dashing
+            if (Time.time > dashStop)
+            {
+                dashing = false;
+                //Set grounded here to fix a bug of player getting stuck after dashing
+                grounded = true;
+                animator.SetBool("Dash_Attack", false);     //set dash attack variable in animator to false
+            }
+            else
+            {
+                LaunchAttack(attackHitboxes[0]);
+            }
         }
         if (shieldUp)
-        {
+        {   //Turns shield off before dashing
             Block();
         }
-
         if (onRightSide)
         {
             rb2d.AddForce(new Vector2(-dashSpeed, 0));
@@ -197,6 +201,7 @@ public class PlayerOneBehaviour : MonoBehaviour
             rb2d.AddForce(new Vector2(dashSpeed, 0));
         }
         dashing = true;
+        //Set time dash should stop
         dashStop = Time.time + dashLength;
     }
 
@@ -207,16 +212,17 @@ public class PlayerOneBehaviour : MonoBehaviour
         {
             rb2d.velocity = new Vector2(
                 rb2d.velocity.x, jump);
-
-            animator.SetBool("isGrounded", true);   //set isGrounded variable to true in animator
-            animator.SetBool("isJumping", false);   //set isJumping Variable to false in animator
-
+            //set isGrounded && isJumping variables in animator to true
+            animator.SetBool("isGrounded", true);   
+            animator.SetBool("isJumping", false);  
         }
     }
 
+    //Main attack method
+    //Used for melee and dash attacks
     private void LaunchAttack(Collider2D col)
     {
-       
+       //Find all colliders overlapping players 'melee' collider
             Collider2D[] cols = Physics2D.OverlapBoxAll(
                 col.bounds.center,
                 col.bounds.extents,
@@ -229,7 +235,8 @@ public class PlayerOneBehaviour : MonoBehaviour
             {
                 continue;
             }
-            Debug.Log("Player One Wins!");
+            //PlayerOne hit successful
+            //Debug.Log("Player One Wins!");
             GameOver();
         }
     }
@@ -259,14 +266,14 @@ public class PlayerOneBehaviour : MonoBehaviour
         //flip both charcters
         transform.Rotate(new Vector3(0, 180, 0));
         enemyScript.transform.Rotate(new Vector3(0, 180, 0));
-        enemyScript.onRightSide = !enemyScript.onRightSide;
+        enemyScript.setOnRightSide();
         onRightSide = !onRightSide;
     }
 
     private void GameOver()
     {
-        //GameObject child = canvas.transform.GetChild(0).gameObject;
-       // child.gameObject.GetComponent<Text>().enabled = true;
+        GameObject child = canvas.transform.GetChild(0).gameObject;
+        child.gameObject.GetComponent<Text>().enabled = true;
         SceneManager.LoadScene("FinalMainScene", LoadSceneMode.Single);
     }
 

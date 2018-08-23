@@ -238,4 +238,9 @@ public class PlayerTwoBehaviour : MonoBehaviour
 	{
 		SceneManager.LoadScene ("FinalMainScene", LoadSceneMode.Single);
 	}
+
+    public void setOnRightSide()
+    {
+
+    }
 }
