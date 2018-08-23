@@ -1,13 +1,13 @@
 # COMP-MDDNGame  
 # Needed:
 
-Playable exported Unity app (mac & windows)
-Git repository link
-Documented video demo - voice over showing moves, camera pan, gameplay
+Playable exported Unity app (mac & windows)  
+Git repository link  
+Documented video demo - voice over showing moves, camera pan, gameplay  
 
 
-Readme.md with:
-# Architecture (Game loop, level structure)
+Readme.md with:  
+# Architecture (Game loop, level structure)  
 # Most technically interesting/challenging parts of prototype
 
 ## Instructions to copy repository locally:  
