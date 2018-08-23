@@ -6,8 +6,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-
 using UnityEngine.SceneManagement;
 
 public class PlayerTwoBehaviour : MonoBehaviour
@@ -18,7 +16,6 @@ public class PlayerTwoBehaviour : MonoBehaviour
 	public int dashSpeed;
 	public float dashCooldown = 2;
     public float dashLength = 2;
-    public float gameOverWait = 3;
 
 	private PlayerOneBehaviour enemyScript;
 	public Collider2D[] attackHitboxes;
@@ -33,8 +30,6 @@ public class PlayerTwoBehaviour : MonoBehaviour
 	private float nextDash = 1;
     private float dashStop;
     public Canvas canvas;
-    public bool gameOver = false;
-    private float gameOverTime;
 
     public Animator animator;
 
@@ -101,9 +96,6 @@ public class PlayerTwoBehaviour : MonoBehaviour
 	// Called every frame 
 	void FixedUpdate ()
 	{
-        if(gameOver){
-            GameOver();
-        }
         if(dashing){
             GameObject ChildGameObject = this.gameObject.transform.GetChild(1).gameObject;
             LaunchAttack (attackHitboxes [0]);  
@@ -229,7 +221,7 @@ public class PlayerTwoBehaviour : MonoBehaviour
 				continue;
 			}
 			Debug.Log ("Player Two Wins!");
-       			GameOver ();
+			GameOver ();
 		}
 	}
 
@@ -242,24 +234,8 @@ public class PlayerTwoBehaviour : MonoBehaviour
 		onRightSide = !onRightSide;
 	}
 
-    public void SetGameOver(){
-        gameOver = true;
-        gameOverTime = Time.time;
-
-    }
-
-    private void GameOver()
-    {
-        if (!gameOver)
-        {
-            SetGameOver();
-            enemyScript.SetGameOver();
-            GameObject child = canvas.transform.GetChild(1).gameObject;
-
-            child.GetComponent<Text>().enabled = true;
-        }
-        else if(Time.time > gameOverTime + gameOverWait){
-            SceneManager.LoadScene("FinalMainScene", LoadSceneMode.Single);
-        }
-    }
+	private void GameOver ()
+	{
+		SceneManager.LoadScene ("FinalMainScene", LoadSceneMode.Single);
+	}
 }
