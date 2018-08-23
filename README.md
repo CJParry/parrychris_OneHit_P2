@@ -15,6 +15,7 @@ Both players play on the same keyboard. Player one is contolled with the arrow k
 Each players moveset consists of a short attack, dash-attack, jump, move and block.
 Level begins with both players on opposite sides. Round is over when one player scores successful damage on the other player. This makes the sccene restart.
 Players use 2 scripts as in future iterations we are likely to give different characters different stats/moves. Camera follows both players pan & zoom. Background clouds loops past  
+had a lot of trouble implemented a canvas with UI components, such as text. In the end I used a sprtie on top of each player as an indicator. The players indicator dissapears when they lose.  
 
 # Most technically interesting/challenging parts of prototype  
 - Merging designers 3d background and other designers sprites/animatons into project
