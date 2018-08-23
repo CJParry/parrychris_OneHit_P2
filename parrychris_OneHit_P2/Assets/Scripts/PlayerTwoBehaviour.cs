@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class PlayerTwoBehaviour : MonoBehaviour
 {
-
     //Public variables can be set in Unity Inspector
     public int dashSpeed;
     public float dashCooldown = 2;

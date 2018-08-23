@@ -2,29 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class scroll : MonoBehaviour
-{
-
-
+//Makes cloud loop accross background
+public class CloudScroll : MonoBehaviour
+{ 
     public float speed = 0.5f;
-    public float startTime;
+    public float duration;
+
     // Use this for initialization
     void Start()
     {
-        startTime = Time.time;
+        duration = Time.time;
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        Vector2 offset = new Vector2(startTime * speed, 0);
-        startTime += 0.001f;
+        Vector2 offset = new Vector2(duration * speed, 0);
+        duration += 0.001f;
         GetComponent<Renderer>().material.mainTextureOffset = offset;
-        if (startTime > 1.5)
+        if (duration > 1.5)
         {
-            startTime = 0;
+            duration = 0;
         }
-
     }
 }

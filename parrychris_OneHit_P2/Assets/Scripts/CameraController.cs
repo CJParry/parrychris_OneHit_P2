@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CameraController : MonoBehaviour {
     public GameObject playerOne;
@@ -8,17 +6,15 @@ public class CameraController : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-		
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {
-        FixedCameraFollowSmooth();
-
+        CameraFollow();
     }
 
-    //     Follow Two Transforms with a Fixed-Orientation Camera
-    public void FixedCameraFollowSmooth()
+    // Follow both players with Camera
+    public void CameraFollow()
     {
         if (transform.position.z < -15.5)
         {
@@ -30,6 +26,7 @@ public class CameraController : MonoBehaviour {
         }
         Transform t1 = playerOne.transform;
         Transform t2 = playerTwo.transform;
+
         // How many units should we keep from the players
         float zoomFactor = 0.7f;
         float followTimeDelta = 0.2f;
@@ -38,12 +35,12 @@ public class CameraController : MonoBehaviour {
         Vector3 midpoint = (t1.position + t2.position) / 2f;
         // Distance between objects
         float distance = (t1.position - t2.position).magnitude;
-     //   midpoint.y = midpoint.y + 1.8f;
+        //midpoint.y = midpoint.y + 1.8f;
         
         // Move camera a certain distance
         Vector3 cameraDestination = midpoint - transform.forward * distance * zoomFactor;
+        //Raise camera slightly in y direction (up)
         cameraDestination.y += 1f;
-
 
         //Move the camera from original position to cameraDestination
         transform.position = Vector3.Slerp(transform.position, cameraDestination, followTimeDelta);
@@ -51,7 +48,5 @@ public class CameraController : MonoBehaviour {
         // Snap when close enough to prevent annoying slerp behavior
         if ((cameraDestination - transform.position).magnitude <= 0.05f)
             transform.position = cameraDestination;
-
-
-    }
+     }
 }
