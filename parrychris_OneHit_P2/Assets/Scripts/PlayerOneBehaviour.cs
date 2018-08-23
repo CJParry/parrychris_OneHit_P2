@@ -1,33 +1,35 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 using UnityEngine.SceneManagement;
 
 public class PlayerOneBehaviour : MonoBehaviour
 {
     public GameObject enemy;
-    public float jump;
-    public float speed; 
+    public Camera cam;
+    public Canvas canvas;
+    public Collider2D[] attackHitboxes;
+
     public int dashSpeed;
     public float dashCooldown = 2;
     public float dashLength = 2;
 
-    private PlayerTwoBehaviour enemyScript;
-    public Collider2D[] attackHitboxes;
-
+    public float jump;
+    public float playerSpeed; 
+    
     public bool onRightSide = true;
     public bool shieldUp = false;
-    private float moveVelocity;
+
+    private Rigidbody2D rb2d;
+    private PlayerTwoBehaviour enemyScript;
     private bool grounded = true;
     private bool dashing = false;
-    private float startDashTime;
-    private Rigidbody2D rb2d;
+
+    private float moveVelocity;
+    //Time the players next dash is available
     private float nextDash = 1;
+    //Time the player will stop dashing
     private float dashStop;
-    public Camera cam;
-    public Canvas canvas;
+
 
 
     public Animator animator;
@@ -106,11 +108,9 @@ public class PlayerOneBehaviour : MonoBehaviour
     {
         if (dashing)
         {
-           // GameObject ChildGameObject = this.gameObject.transform.GetChild(1).gameObject;
             LaunchAttack(attackHitboxes[0]);
             if (Time.time > dashStop)
             {
-                // ChildGameObject.GetComponent<SpriteRenderer>().enabled = false;
                 dashing = false;
                 grounded = true;
 
@@ -128,12 +128,12 @@ public class PlayerOneBehaviour : MonoBehaviour
 
             if (Input.GetKey(KeyCode.LeftArrow))
             {
-                moveVelocity = -speed;                                      //move left
+                moveVelocity = -playerSpeed;                                      //move left
 
             }
             if (Input.GetKey(KeyCode.RightArrow))
             {
-                moveVelocity = speed;                                       //move right
+                moveVelocity = playerSpeed;                                       //move right
 
             }
             if (Input.GetKey(KeyCode.DownArrow) && Time.time > nextDash && !dashing)
@@ -211,7 +211,6 @@ public class PlayerOneBehaviour : MonoBehaviour
         }
         dashing = true;
         dashStop = Time.time + dashLength;
-        // startDashTime = Time.time;
     }
 
     private void Jump()
