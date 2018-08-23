@@ -1,140 +1,134 @@
-﻿//using System.Collections;
-//using System.Collections.Generic;
-//using UnityEngine;
-//using UnityEngine.SceneManagement;
-//
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerTwoBehaviour : MonoBehaviour
 {
-	public GameObject enemy;
-	public float jump;
-	public float speed;
-	public int dashSpeed;
-	public float dashCooldown = 2;
+
+    //Public variables can be set in Unity Inspector
+    public int dashSpeed;
+    public float dashCooldown = 2;
     public float dashLength = 2;
 
-	private PlayerOneBehaviour enemyScript;
-	public Collider2D[] attackHitboxes;
+    public float jump;
+    public float playerSpeed;
 
-	public bool onRightSide = false;
-	public bool shieldUp = false;
-	private float moveVelocity;
-	private bool grounded = true;
-    private bool dashing = false;
-    private float startDashTime;
-	private Rigidbody2D rb2d;
-	private float nextDash = 1;
-    private float dashStop;
+    public GameObject enemy;
     public Canvas canvas;
-
+    public Collider2D[] attackHitboxes;
     public Animator animator;
 
+    private Rigidbody2D rb2d;
+    private PlayerOneBehaviour enemyScript;
 
-	// Use this for initialization
-	void Start ()
-	{
-		rb2d = GetComponent<Rigidbody2D> ();
+    private bool grounded = true;
+    private bool dashing = false;
+    private bool shieldUp = false;
+
+    //Is the player on the right hand side of the other player?
+    private bool onRightSide = false;
+    //Used to calculate movement vector for horizontal movement
+    private float moveVelocity;
+
+    //Time the players next dash is available
+    private float nextDash = 1;
+    //Time the player will stop dashing
+    private float dashStop;
+
+    // Use this for initialization
+    void Start()
+    {
+        //Initializes the players RigidBody, Animator and EnemyScript
+        rb2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-		enemyScript = enemy.GetComponent<PlayerOneBehaviour> ();
-	}
+        enemyScript = enemy.GetComponent<PlayerOneBehaviour>();
+    }
 
-	// Called every frame
-	void Update ()
-	{
+    // Called every frame
+    void Update()
+    {
+        //Check if player is on ground, set variable if so
         checkGrounded();
-        if (Input.GetKey(KeyCode.LeftShift))
+
+        if (dashing)
         {
-            LaunchAttack(attackHitboxes[0]);
-
-           // animator.SetBool("Jab_attack", true);    //set animator variable Jab_attack to true
-
+            Dash();
         }
-		if (Input.GetKey (KeyCode.W)) {									//	jump
-            animator.SetBool("isJumping", true);        //sets animator varialbe isJumping to true
+
+        //  Jump
+        if (Input.GetKey(KeyCode.W))
+        {   //sets animator variables to true
+            animator.SetBool("isJumping", true);
             animator.SetBool("Grounded", false);
-			Jump ();
-
-
-		}
-		else if (Input.GetKeyUp (KeyCode.LeftShift) && shieldUp == false) {    //melee
-
-            animator.SetBool("Jab_attack", false);    //set animator variable Jab_attack to false
-
-		}
-		else if (Input.GetKeyDown (KeyCode.LeftShift) && shieldUp == false) {    //melee
-			
-             animator.SetBool("Jab_attack", true);    //set animator variable Jab_attack to true
-
-		//	LaunchAttack (attackHitboxes [1]);	
-
-		}
-		else if (Input.GetKeyDown (KeyCode.E)) {						//block
-			Block();
-
-
-		}
-
-		//check if players have passed each other
-		Vector3 position = transform.position;
-
-		if (onRightSide == true) {
-			if (position.x < enemyScript.transform.position.x) {
-				Flip ();
-			}
-		} else {
-            if (position.x >= enemyScript.transform.position.x)
-            {
-                Flip();
-            }
-		}
-	}
-
-	// Called every frame 
-	void FixedUpdate ()
-	{
-        if(dashing){
-            GameObject ChildGameObject = this.gameObject.transform.GetChild(1).gameObject;
-            LaunchAttack (attackHitboxes [0]);  
-            if(Time.time > dashStop){
-               // ChildGameObject.GetComponent<SpriteRenderer>().enabled = false;
-                dashing = false;
-                grounded = true;
-
-                animator.SetBool("Dash_Attack", false);     //set dash attack variable in animator to false
-
-            }
-            return;
+            Jump();
         }
-		if (grounded) {
-			moveVelocity = 0;
+        //Melee
+        //There are 3 melee cases - KeyUp, KeyDown, Key
+        else if (Input.GetKeyUp(KeyCode.LeftShift) && shieldUp == false)
+        {    //KeyUp is when releasing melee, turning off animation
+            animator.SetBool("Jab_attack", false);
+        }
+        else if (Input.GetKeyDown(KeyCode.LeftShift) && shieldUp == false)
+        {    //KeyDown is beginning of melee animation and launchAttack
+            animator.SetBool("Jab_attack", true);
+            LaunchAttack(attackHitboxes[0]);
+        }
+        else if (Input.GetKey(KeyCode.LeftShift))
+        {    //Key is when holding attack
+             //May remove this option in future
+            LaunchAttack(attackHitboxes[0]);
+        }
+        //Block 
+        else if (Input.GetKeyDown(KeyCode.E))
+        {
+            Block();
+        }
+        //Restart button (for development)
+        else if (Input.GetKey(KeyCode.Delete))
+        {
+            GameOver();
+        }
+        //Check && flip players if they have passed each other
+        CheckFlip();
+    }
 
-            animator.SetBool("Grounded", true); //sets Grounded variable in Animator to true
 
+    // Called every frame 
+    void FixedUpdate()
+    {
+        if (grounded)
+        {
+            moveVelocity = 0;
+            //set Grounded variable in Animator to true
+            animator.SetBool("Grounded", true);
 
-			if (Input.GetKey (KeyCode.A)) {
-				moveVelocity = -speed;							  			//move left
+            //move left
+            if (Input.GetKey(KeyCode.A))
+            {
+                moveVelocity = -playerSpeed;
+            }
+            //move right
+            if (Input.GetKey(KeyCode.D))
+            {
+                moveVelocity = playerSpeed;
+            }
+            //Dash
+            if (Input.GetKey(KeyCode.S) && Time.time > nextDash && !dashing)
+            {
+                //Set the time for next earliest dash
+                nextDash = Time.time + dashCooldown;
+                //Set dash attack variable in animator to true
+                animator.SetBool("Dash_Attack", true);
 
-			}
-			if (Input.GetKey (KeyCode.D)) {
-				moveVelocity = speed;										//move right
-
-			}
-			if (Input.GetKey (KeyCode.S) && Time.time > nextDash && !dashing) {
-				nextDash = Time.time + dashCooldown;
-				Dash ();													//dash
-
-                animator.SetBool("Dash_Attack", true);  //Set dash attack variable in animator to true
-
-				return;
-			}
-			rb2d.velocity = new Vector2 (moveVelocity, 
-				rb2d.velocity.y);
-		}
-	}
+                Dash();
+                return;
+            }
+            //Move the player by moving iuts Rigidbody component
+            rb2d.velocity = new Vector2(moveVelocity,
+                rb2d.velocity.y);
+        }
+    }
 
     void OnTriggerEnter2D(Collider2D coll)
     {
@@ -145,14 +139,16 @@ public class PlayerTwoBehaviour : MonoBehaviour
         }
     }
 
-	void OnTriggerExit2D (Collider2D coll)
-	{
-		//check if floor or other player
-        if (coll.transform.tag.Contains ("Ground") || coll.transform.tag.Contains ("Head")) {
-			grounded = false;
-		}
-	}
+    void OnTriggerExit2D(Collider2D coll)
+    {
+        //check if floor or other player
+        if (coll.transform.tag.Contains("Ground") || coll.transform.tag.Contains("Head"))
+        {
+            grounded = false;
+        }
+    }
 
+    //Check to see if player grounded, update booleans if so
     private void checkGrounded()
     {
         Debug.Log("Y value = " + gameObject.transform.position.y);
@@ -163,84 +159,140 @@ public class PlayerTwoBehaviour : MonoBehaviour
         }
     }
 
-	private void Block(){
-		//toggle shield on/off
-		shieldUp = !shieldUp;
+    private void Block()
+    {
+        //toggle shield on/off
+        shieldUp = !shieldUp;
+        //set animator variable Block to true
+        animator.SetBool("Block", shieldUp);
+        //Activate blue shield sprite
+        GameObject ChildGameObject = this.gameObject.transform.GetChild(0).gameObject;
+        ChildGameObject.GetComponent<SpriteRenderer>().enabled = shieldUp;
+    }
 
-        animator.SetBool("Block", shieldUp);    //sets animator variable Block to true
-
-
-		GameObject ChildGameObject = this.gameObject.transform.GetChild (0).gameObject;
-		ChildGameObject.GetComponent<SpriteRenderer> ().enabled = shieldUp;
-	}
-
-	private void Dash ()
+    private void Dash()
     {
         if (dashing)
         {
-            return;
+            //Checkif player should stop dashing
+            if (Time.time > dashStop)
+            {
+                dashing = false;
+                //Set grounded here to fix a bug of player getting stuck after dashing
+                grounded = true;
+                animator.SetBool("Dash_Attack", false);     //set dash attack variable in animator to false
+            }
+            else
+            {
+                LaunchAttack(attackHitboxes[0]);
+            }
         }
         if (shieldUp)
-        {
+        {   //Turns shield off before dashing
             Block();
         }
-      
-		if (onRightSide) {
-			rb2d.AddForce (new Vector2 (-dashSpeed, 0));
-		} else {
-			rb2d.AddForce (new Vector2 (dashSpeed, 0));
-		}
+        if (onRightSide)
+        {
+            rb2d.AddForce(new Vector2(-dashSpeed, 0));
+        }
+        else
+        {
+            rb2d.AddForce(new Vector2(dashSpeed, 0));
+        }
         dashing = true;
+        //Set time dash should stop
         dashStop = Time.time + dashLength;
-       // startDashTime = Time.time;
-        Debug.Log("In dash");
-	}
+    }
 
-	private void Jump(){
-		//check player is grounded before jumping
-		if (grounded) {
-			rb2d.velocity = new Vector2 (
-				rb2d.velocity.x, jump);
+    private void Jump()
+    {
+        //check player is grounded before jumping
+        if (grounded)
+        {
+            rb2d.velocity = new Vector2(
+                rb2d.velocity.x, jump);
+            //set isGrounded && isJumping variables in animator to true
+            animator.SetBool("isGrounded", true);
+            animator.SetBool("isJumping", false);
+        }
+    }
 
-            animator.SetBool("isGrounded", true);   //set isGrounded variable to true in animator
-            animator.SetBool("isJumping", false);   //set isJumping Variable to false in animator
+    //Main attack method
+    //Used for melee and dash attacks
+    private void LaunchAttack(Collider2D col)
+    {
+        //Find all colliders overlapping players 'melee' collider
+        Collider2D[] cols = Physics2D.OverlapBoxAll(
+            col.bounds.center,
+            col.bounds.extents,
+            0,
+            LayerMask.GetMask("Hitbox"));
 
-		}
-	}
+        foreach (Collider2D c in cols)
+        {
+            if (c.transform.parent.parent == transform || enemyScript.getShieldUp() == true)
+            {
+                continue;
+            }
+            //PlayerTwo hit successful
+            //Debug.Log("Player One Wins!");
+            GameOver();
+        }
+    }
 
-	private void LaunchAttack (Collider2D col)
-	{
-		Collider2D[] cols = Physics2D.OverlapBoxAll (
-			col.bounds.center, 
-			col.bounds.extents, 
-			0, 
-			LayerMask.GetMask ("Hitbox"));
+    private void CheckFlip()
+    {
+        //check if players have passed each other
+        Vector3 position = transform.position;
+        if (onRightSide == true)
+        {
+            if (position.x < enemyScript.transform.position.x)
+            {
+                Flip();
+            }
+        }
+        else
+        {
+            if (position.x >= enemyScript.transform.position.x)
+            {
+                Flip();
+            }
+        }
+    }
 
-		foreach (Collider2D c in cols) {
-			if (c.transform.parent.parent == transform || enemyScript.getShieldUp() == true) {
-				continue;
-			}
-			Debug.Log ("Player Two Wins!");
-			GameOver ();
-		}
-	}
-
-	void Flip ()
-	{
-		//flip both charcters
-		transform.Rotate (new Vector3 (0, 180, 0));
-		enemyScript.transform.Rotate (new Vector3 (0, 180, 0));
+    void Flip()
+    {
+        //flip both charcters
+        transform.Rotate(new Vector3(0, 180, 0));
+        enemyScript.transform.Rotate(new Vector3(0, 180, 0));
         enemyScript.setOnRightSide();
-		onRightSide = !onRightSide;
-	}
+        onRightSide = !onRightSide;
+    }
 
-	private void GameOver ()
-	{
-		SceneManager.LoadScene ("FinalMainScene", LoadSceneMode.Single);
-	}
+    private void GameOver()
+    {
+        GameObject child = canvas.transform.GetChild(1).gameObject;
+        child.gameObject.GetComponent<Text>().enabled = true;
+        SceneManager.LoadScene("FinalMainScene", LoadSceneMode.Single);
+    }
+
+    public bool getOnRightSide()
+    {
+        return onRightSide;
+    }
+
+    public bool getShieldUp()
+    {
+        return shieldUp;
+    }
 
     public void setOnRightSide()
     {
+        onRightSide = !onRightSide;
+    }
 
+    public void setShieldUp(bool shield)
+    {
+        shieldUp = shield;
     }
 }

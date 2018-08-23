@@ -15,7 +15,6 @@ public class PlayerOneBehaviour : MonoBehaviour
     public float playerSpeed;
 
     public GameObject enemy;
-    public Camera cam;
     public Canvas canvas;
     public Collider2D[] attackHitboxes;
     public Animator animator;
@@ -231,7 +230,7 @@ public class PlayerOneBehaviour : MonoBehaviour
 
         foreach (Collider2D c in cols)
         {
-            if (c.transform.parent.parent == transform || enemyScript.shieldUp == true)
+            if (c.transform.parent.parent == transform || enemyScript.getShieldUp() == true)
             {
                 continue;
             }

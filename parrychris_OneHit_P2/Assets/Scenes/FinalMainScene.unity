@@ -4840,8 +4840,8 @@ MonoBehaviour:
   jump: 30
   playerSpeed: 9
   enemy: {fileID: 1565138146}
-  cam: {fileID: 0}
-  canvas: {fileID: 0}
+  cam: {fileID: 1742281765}
+  canvas: {fileID: 721930783}
   attackHitboxes:
   - {fileID: 1986714499}
   animator: {fileID: 0}
@@ -6973,17 +6973,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce179fd0720634e52980a612d16a8891, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 1053227042}
-  jump: 30
-  speed: 9
   dashSpeed: 5000
   dashCooldown: 3
   dashLength: 0.5
+  jump: 30
+  playerSpeed: 9
+  enemy: {fileID: 1053227042}
+  cam: {fileID: 0}
+  canvas: {fileID: 721930783}
   attackHitboxes:
   - {fileID: 882408433}
-  onRightSide: 0
-  shieldUp: 0
-  canvas: {fileID: 0}
   animator: {fileID: 0}
 --- !u!212 &1565138152
 SpriteRenderer:
