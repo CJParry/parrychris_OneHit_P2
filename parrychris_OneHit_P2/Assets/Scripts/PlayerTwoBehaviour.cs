@@ -24,6 +24,13 @@ public class PlayerTwoBehaviour : MonoBehaviour
     private bool grounded = true;
     private bool dashing = false;
     private bool shieldUp = false;
+    private bool gameOver = false;
+    private bool won = false;
+
+    //Time the game ended
+    private float gameOverTime;
+    //Time to waait before new game starts
+    private float gameOverWait = 1f;
 
     //Is the player on the right hand side of the other player?
     private bool onRightSide = false;
@@ -47,6 +54,10 @@ public class PlayerTwoBehaviour : MonoBehaviour
     // Called every frame
     void Update()
     {
+        if (gameOver)
+        {
+            return;
+        }
         //Check if player is on ground, set variable if so
         checkGrounded();
 
@@ -93,6 +104,11 @@ public class PlayerTwoBehaviour : MonoBehaviour
     // Called every frame 
     void FixedUpdate()
     {
+        if (gameOver)
+        {
+            GameOver();
+            return;
+        }
         if (grounded)
         {
             moveVelocity = 0;
@@ -147,7 +163,6 @@ public class PlayerTwoBehaviour : MonoBehaviour
     //Check to see if player grounded, update booleans if so
     private void checkGrounded()
     {
-        Debug.Log("Y value = " + gameObject.transform.position.y);
         if (gameObject.transform.position.y < 1.35)
         {
             animator.SetBool("Grounded", true);
@@ -232,17 +247,38 @@ public class PlayerTwoBehaviour : MonoBehaviour
             }
             //PlayerTwo hit successful
             //Debug.Log("Player One Wins!");
+            won = true;
             GameOver();
         }
     }
 
     private void GameOver()
     {
-        GameObject child = canvas.transform.GetChild(1).gameObject;
-        child.gameObject.GetComponent<Text>().enabled = true;
-        SceneManager.LoadScene("FinalMainScene", LoadSceneMode.Single);
+        if (!gameOver)
+        {
+            //Turn on win message - not working
+            //GameObject child = canvas.transform.GetChild(1).gameObject;
+            //child.gameObject.GetComponent<Text>().enabled = true;
+            gameOverTime = Time.time;
+            gameOver = true;
+            enemyScript.SetGameOver(true);
+        }
+        else if(gameOver && Time.time > gameOverTime + gameOverWait)
+        {
+            SceneManager.LoadScene("FinalMainScene", LoadSceneMode.Single);
+        }
+        else if (!won)
+        {
+            GameObject ChildGameObject = this.gameObject.transform.GetChild(1).gameObject;
+            ChildGameObject.GetComponent<SpriteRenderer>().enabled = false;
+        }
     }
 
+    public void SetGameOver(bool game)
+    {
+        gameOver = game;
+        gameOverTime = Time.time;
+    }
     public bool getOnRightSide()
     {
         return onRightSide;
