@@ -1,4 +1,6 @@
 # COMP-MDDNGame  
+# Architecture (Game loop, level structure)
+# Most technically interesting/challenging parts of prototype
 
 ## Instructions to copy repository locally:  
 * Download Git  
