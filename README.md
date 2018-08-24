@@ -15,7 +15,7 @@ There is a separate script for each player, which are very similar. Although the
 
 Most variables which may need tuning in the future are public. This is so the designers can help fine tune the game without having to change code.
 
-I had a lot of trouble implementing a canvas with UI components, such as text. In the end I used a sprite on top of each player as an indicator. The players indicator dissapears when they lose. This should be improved in the next iteration.   
+I had a lot of trouble implementing a canvas with UI components, such as text. In the end I disabled the canvas and used a sprite on top of each player as an indicator. The players indicator dissapears when they lose. This should be improved in the next iteration.   
 
 #### Game Loop
 The game begins with players on opposite sides. The round is over when one player scores successful damage on the other player. This makes the scene restart, and essentially begins the next round.   
