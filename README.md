@@ -38,7 +38,7 @@ Jump: Up Arrow Key
 Attack: Right Shift  
 Block: Right Alt  
 Dash: Down Arrow  
-Delete: Restart
+Restart: Delete  
 
 #### Green Player:  
 Movement: A / D  
@@ -46,7 +46,7 @@ Jump: W
 Attack: Left Shift  
 Block: E  
 Dash: S  
-Delete: Restart
+Restart: Delete  
 
 ### Instructions to copy repository locally:  
 * Download Git  
