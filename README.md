@@ -56,5 +56,5 @@ Restart: Delete
 
 ```bash
 $ git clone https://github.com/CJParry/parrychris_OneHit_P2.git
-$ cd COMP-MDDNGame
+$ cd parrychris_OneHit_P2
 ```
