@@ -49,13 +49,12 @@ Dash: S
 Restart: Delete  
 
 ### Instructions to copy repository locally:  
-* Download Git  
-* Fork main repository into your own GitHub Account  
-* Copy clone link from your Forked repository  
+* Download Git   
+* In command line / terminal:  
+* navigate to directory  
 
-* In command line / terminal
 
 ```bash
-$ git clone [clone link from your repository]
+$ git clone https://github.com/CJParry/parrychris_OneHit_P2.git
 $ cd COMP-MDDNGame
 ```
