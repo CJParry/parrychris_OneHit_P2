@@ -1,6 +1,13 @@
 # One Hit Prototype    
-"One Hit" is a fast paced 2D fighting game, with a 3D background. The twist is that it only requires one successful attack to defeat the other player, winning the round. 
+"One Hit" is a fast paced 2D fighting game, with a 3D background. The twist is that it only requires one successful attack to defeat the other player, winning the round.  
 
+## Demos:
+#### Moveset Demo:  
+https://drive.google.com/open?id=1zP4KMrXxN-oN4KXTCvPpkNofGJBc3F1h  
+#### Real Fight:  
+https://drive.google.com/open?id=1bkC0A2XEVCCGC8xvF60LeN1gcxQfQl1j
+#### Bug or Feature?
+https://drive.google.com/open?id=1T-E13J8vxmQBjk-bb9ggsEmScpfDtOh2  
 ## Architecture  
 This game, developed in Unity, is played by two people sharing one keyboard. The blue player is controlled with the arrow keys and the green player is controlled with WASD. Each players moveset consists of a short attack, dash-attack, jump, move and block.  The dash attack is on a 3 second cooldown, and is seen as the 'Over Powered' move.  
 
