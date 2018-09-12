@@ -107,6 +107,7 @@ player interaction
  - combo system ( player has strings )
  - maybe change one hit death system?
  - gun, strong but backfires player
+ - duck high jabs
  
  
 animations
