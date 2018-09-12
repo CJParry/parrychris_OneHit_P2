@@ -65,3 +65,61 @@ Restart: Delete
 $ git clone https://github.com/CJParry/parrychris_OneHit_P2.git
 $ cd parrychris_OneHit_P2
 ```
+### Ideas
+Powerups
+  - take an extra hit
+  - double jump
+  - movement speed buff
+  - longer hitbox
+  - frame recovery
+  - weapon
+  
+UI
+  - welcome screen
+  - new round. best of 3
+  - show end game
+
+controller 
+
+- map interactions
+  - walk on roof
+  - worm holes
+  - map hazards that kill player / stun / slowdown / push player
+  - wall breaks (cinematic of moving to the next level)
+  
+add new map after adding map interactions
+
+- expand level size
+
+extra moves
+  - double jump
+  
+sound
+- roblox death sound
+- background music
+- getting powerup
+- hit sound'
+
+player interaction
+ - slow motion on near hit
+ - consider time it takes to fist to reach player
+ - blocking too much means u can get stunned
+ - combo system ( player has strings )
+ - maybe change one hit death system?
+ - gun, strong but backfires player
+ 
+ 
+animations
+  - animate powerups
+  - animate moves
+  - recycle animations if possible
+  
+ roster
+  - different characters with their own moveset
+  - different attributes eg fast ass thats strong but slow, agile ninja?
+  
+ 
+  
+
+
+
