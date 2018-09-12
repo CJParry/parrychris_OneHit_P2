@@ -103,7 +103,8 @@ sound
 player interaction
  - slow motion on near hit
  - consider time it takes to fist to reach player
- - blocking too much means u can get stunned
+ - blocking too much means u can get stunned.
+ - blocking means you can only move backwards. No jumping or forward movement.
  - combo system ( player has strings )
  - maybe change one hit death system?
  - gun, strong but backfires player
