@@ -79,12 +79,12 @@ public class PlayerTwoBehaviour : MonoBehaviour
         {    //KeyUp is when releasing melee, turning off animation
             animator.SetBool("Jab_attack", false);
         }
-        else if (Input.GetKeyDown(KeyCode.LeftShift) && shieldUp == false)
+        else if (Input.GetKeyDown(KeyCode.LeftShift) && shieldUp == false )
         {    //KeyDown is beginning of melee animation and launchAttack
             animator.SetBool("Jab_attack", true);
             LaunchAttack(attackHitboxes[0]);
         }
-        else if (Input.GetKey(KeyCode.LeftShift))
+        else if (Input.GetKey(KeyCode.LeftShift) && shieldUp == false )
         {    //Key is when holding attack
              //May remove this option in future
             LaunchAttack(attackHitboxes[0]);
