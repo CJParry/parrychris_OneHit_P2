@@ -144,8 +144,7 @@ public class PlayerTwoBehaviour : MonoBehaviour
         }
         if(slidingoffhead){
             //Move the player by moving iuts Rigidbody component
-            rb2d.velocity = new Vector2(moveVelocity,
-                rb2d.velocity.y);
+            rb2d.velocity = new Vector2(-5f,0f);
         }
     }
 
@@ -154,6 +153,7 @@ public class PlayerTwoBehaviour : MonoBehaviour
         //check if floor or other player
         if (coll.transform.tag.Contains("Ground"))
         {
+            slidingoffhead = false;
             grounded = true;
         }
         else if (coll.transform.tag.Contains("Head"))
@@ -174,6 +174,7 @@ public class PlayerTwoBehaviour : MonoBehaviour
     // this method will push the player off the other player's head
     private void SlideOffHead(){
         Debug.Log("Slide off head");
+        slidingoffhead = true;
     }
 
     //Check to see if player grounded, update booleans if so
