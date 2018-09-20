@@ -93,6 +93,7 @@ add new map after adding map interactions
 
 extra moves
   - double jump
+  - Feint attack (looks like a dash to try trick the opponent into blocking)
   
 sound
 - roblox death sound
