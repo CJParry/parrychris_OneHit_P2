@@ -27,6 +27,8 @@ public class PlayerTwoBehaviour : MonoBehaviour
     private bool gameOver = false;
     private bool won = false;
 
+    private bool slidingoffhead = false;
+
     //Time the game ended
     private float gameOverTime;
     //Time to waait before new game starts
@@ -140,24 +142,38 @@ public class PlayerTwoBehaviour : MonoBehaviour
             rb2d.velocity = new Vector2(moveVelocity,
                 rb2d.velocity.y);
         }
+        if(slidingoffhead){
+            //Move the player by moving iuts Rigidbody component
+            rb2d.velocity = new Vector2(moveVelocity,
+                rb2d.velocity.y);
+        }
     }
 
     void OnTriggerEnter2D(Collider2D coll)
     {
         //check if floor or other player
-        if (coll.transform.tag.Contains("Ground") || coll.transform.tag.Contains("Head"))
+        if (coll.transform.tag.Contains("Ground"))
         {
             grounded = true;
+        }
+        else if (coll.transform.tag.Contains("Head"))
+        {
+            SlideOffHead();
         }
     }
 
     void OnTriggerExit2D(Collider2D coll)
     {
         //check if floor or other player
-        if (coll.transform.tag.Contains("Ground") || coll.transform.tag.Contains("Head"))
+        if (coll.transform.tag.Contains("Ground"))
         {
             grounded = false;
         }
+    }
+
+    // this method will push the player off the other player's head
+    private void SlideOffHead(){
+        Debug.Log("Slide off head");
     }
 
     //Check to see if player grounded, update booleans if so
