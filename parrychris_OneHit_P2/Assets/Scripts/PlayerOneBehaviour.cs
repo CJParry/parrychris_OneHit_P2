@@ -7,8 +7,8 @@ public class PlayerOneBehaviour : MonoBehaviour
 {
     //Public variables can be set in Unity Inspector
     public int dashSpeed;
-    public float dashCooldown = 2;
-    public float dashLength = 2;
+    private float dashCooldown = 1;
+    private float dashLength = 0.2f;
 
     public float jump;
     public float playerSpeed;
@@ -22,7 +22,8 @@ public class PlayerOneBehaviour : MonoBehaviour
     private PlayerTwoBehaviour enemyScript;
 
     private bool grounded = true;
-    private bool dashing = false;
+    public bool dashing = false;
+    private bool dashDir = false;
     private bool shieldUp = false;
     private bool gameOver = false;
     private bool won = false;
@@ -193,17 +194,30 @@ public class PlayerOneBehaviour : MonoBehaviour
                 //Set grounded here to fix a bug of player getting stuck after dashing
                 grounded = true;
                 animator.SetBool("Dash_Attack", false);     //set dash attack variable in animator to false
+                this.rb2d.velocity = new Vector2(0, 0);
             }
             else
             {
                 LaunchAttack(attackHitboxes[0]);
             }
         }
+        else //If not dashing, start dash
+        {
+            if(onRightSide) {
+                dashDir = true;
+            } else {
+                dashDir = false;
+            }
+            dashing = true;
+            //Set time dash should stop
+            dashStop = Time.time + dashLength;
+
+        }
         if (shieldUp)
         {   //Turns shield off before dashing
             Block();
         }
-        if (onRightSide)
+        else if (dashDir)
         {
             rb2d.AddForce(new Vector2(-dashSpeed, 0));
         }
@@ -211,9 +225,7 @@ public class PlayerOneBehaviour : MonoBehaviour
         {
             rb2d.AddForce(new Vector2(dashSpeed, 0));
         }
-        dashing = true;
-        //Set time dash should stop
-        dashStop = Time.time + dashLength;
+        
     }
 
     private void Jump()
