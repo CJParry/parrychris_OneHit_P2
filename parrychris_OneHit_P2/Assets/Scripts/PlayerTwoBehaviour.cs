@@ -7,8 +7,8 @@ public class PlayerTwoBehaviour : MonoBehaviour
 {
     //Public variables can be set in Unity Inspector
     public int dashSpeed;
-    public float dashCooldown = 2;
-    public float dashLength = 2;
+    private float dashCooldown = 1;
+    private float dashLength = 0.2f;
 
     public float jump;
     public float playerSpeed;
@@ -23,6 +23,7 @@ public class PlayerTwoBehaviour : MonoBehaviour
 
     private bool grounded = true;
     private bool dashing = false;
+    private bool dashDir = false;
     private bool shieldUp = false;
     private bool gameOver = false;
     private bool won = false;
@@ -118,12 +119,12 @@ public class PlayerTwoBehaviour : MonoBehaviour
             animator.SetBool("Grounded", true);
 
             //move left
-            if (Input.GetKey(KeyCode.A))
+            if (Input.GetKey(KeyCode.A) && !shieldUp)
             {
                 moveVelocity = -playerSpeed;
             }
             //move right
-            if (Input.GetKey(KeyCode.D))
+            if (Input.GetKey(KeyCode.D) && !shieldUp)
             {
                 moveVelocity = playerSpeed;
             }
@@ -142,10 +143,10 @@ public class PlayerTwoBehaviour : MonoBehaviour
             rb2d.velocity = new Vector2(moveVelocity,
                 rb2d.velocity.y);
         }
-        if(slidingoffhead){
-            //Move the player by moving iuts Rigidbody component
-            rb2d.velocity = new Vector2(-5f,0f);
-        }
+        // if(slidingoffhead){
+        //     //Move the player by moving iuts Rigidbody component
+        //     rb2d.velocity = new Vector2(-5f,0f);
+        // }
     }
 
     void OnTriggerEnter2D(Collider2D coll)
@@ -158,6 +159,7 @@ public class PlayerTwoBehaviour : MonoBehaviour
         }
         else if (coll.transform.tag.Contains("Head"))
         {
+            grounded = true; //TODO remove later
             SlideOffHead();
         }
     }
@@ -209,17 +211,30 @@ public class PlayerTwoBehaviour : MonoBehaviour
                 //Set grounded here to fix a bug of player getting stuck after dashing
                 grounded = true;
                 animator.SetBool("Dash_Attack", false);     //set dash attack variable in animator to false
+                this.rb2d.velocity = new Vector2(0, 0);
             }
             else
             {
                 LaunchAttack(attackHitboxes[0]);
             }
         }
+        else //If not dashing, start dash
+        {
+            if(onRightSide) {
+                dashDir = true;
+            } else {
+                dashDir = false;
+            }
+            dashing = true;
+            //Set time dash should stop
+            dashStop = Time.time + dashLength;
+
+        }
         if (shieldUp)
         {   //Turns shield off before dashing
             Block();
         }
-        if (onRightSide)
+        else if (dashDir)
         {
             rb2d.AddForce(new Vector2(-dashSpeed, 0));
         }
@@ -227,9 +242,7 @@ public class PlayerTwoBehaviour : MonoBehaviour
         {
             rb2d.AddForce(new Vector2(dashSpeed, 0));
         }
-        dashing = true;
-        //Set time dash should stop
-        dashStop = Time.time + dashLength;
+        
     }
 
     private void Jump()

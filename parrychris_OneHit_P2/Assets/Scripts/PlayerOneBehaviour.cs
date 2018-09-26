@@ -22,11 +22,13 @@ public class PlayerOneBehaviour : MonoBehaviour
     private PlayerTwoBehaviour enemyScript;
 
     private bool grounded = true;
-    public bool dashing = false;
+    private bool dashing = false;
     private bool dashDir = false;
     private bool shieldUp = false;
     private bool gameOver = false;
     private bool won = false;
+
+    private bool slidingoffhead = false;
 
     //Time the game ended
     private float gameOverTime;
@@ -85,7 +87,7 @@ public class PlayerOneBehaviour : MonoBehaviour
             animator.SetBool("Jab_attack", true);    
             LaunchAttack(attackHitboxes[0]);
         }
-        else if (Input.GetKey(KeyCode.RightShift))
+        else if (Input.GetKey(KeyCode.RightShift) && shieldUp == false )
         {    //Key is when holding attack
              //May remove this option in future
             LaunchAttack(attackHitboxes[0]);
@@ -118,12 +120,12 @@ public class PlayerOneBehaviour : MonoBehaviour
             animator.SetBool("Grounded", true);
 
             //move left
-            if (Input.GetKey(KeyCode.LeftArrow))
+            if (Input.GetKey(KeyCode.LeftArrow) && !shieldUp)
             {
                 moveVelocity = -playerSpeed;                                      
             }
             //move right
-            if (Input.GetKey(KeyCode.RightArrow))
+            if (Input.GetKey(KeyCode.RightArrow) && !shieldUp)
             {
                 moveVelocity = playerSpeed;                                       
             }
@@ -142,24 +144,40 @@ public class PlayerOneBehaviour : MonoBehaviour
             rb2d.velocity = new Vector2(moveVelocity,
                 rb2d.velocity.y);
         }
+        // if(slidingoffhead){
+        //     //Move the player by moving iuts Rigidbody component
+        //     rb2d.velocity = new Vector2(-5f,0f);
+        // }
     }
 
     void OnTriggerEnter2D(Collider2D coll)
     {
         //check if floor or other player
-        if (coll.transform.tag.Contains("Ground") || coll.transform.tag.Contains("Head"))
+        if (coll.transform.tag.Contains("Ground"))
+        {
+            slidingoffhead = false;
+            grounded = true;
+        }
+        else if (coll.transform.tag.Contains("Head"))
         {
             grounded = true;
+            SlideOffHead();
         }
     }
 
     void OnTriggerExit2D(Collider2D coll)
     {
         //check if floor or other player
-        if (coll.transform.tag.Contains("Ground") || coll.transform.tag.Contains("Head"))
+        if (coll.transform.tag.Contains("Ground"))
         {
             grounded = false;
         }
+    }
+
+    // this method will push the player off the other player's head
+    private void SlideOffHead(){
+        Debug.Log("Slide off head");
+        slidingoffhead = true;
     }
 
     //Check to see if player grounded, update booleans if so
