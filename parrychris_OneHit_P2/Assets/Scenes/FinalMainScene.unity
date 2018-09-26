@@ -1202,7 +1202,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 250419600}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -112.31169, y: 19.941332, z: -0.39255348}
+  m_LocalPosition: {x: -112.31169, y: 19.941332, z: -0.39255354}
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_Children:
   - {fileID: 1986714498}
@@ -4717,11 +4717,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1053227046}
   - component: {fileID: 1053227045}
-  - component: {fileID: 1053227047}
   - component: {fileID: 1053227044}
   - component: {fileID: 1053227043}
   - component: {fileID: 1053227049}
   - component: {fileID: 1053227048}
+  - component: {fileID: 1053227047}
   m_Layer: 0
   m_Name: PlayerOne
   m_TagString: Player1
@@ -4845,14 +4845,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1053227042}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4081f1b24ae449289012ac26f9caa38, type: 3}
+  m_Script: {fileID: 11500000, guid: 6336ba56148234bf4acf244d4a63bc19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dashSpeed: 5000
-  dashCooldown: 3
-  dashLength: 0.5
-  jump: 30
-  playerSpeed: 9
+  left: 276
+  right: 275
+  jump: 273
+  dash: 274
+  block: 307
+  jab: 303
   enemy: {fileID: 1565138146}
   canvas: {fileID: 721930783}
   attackHitboxes:
@@ -6877,11 +6878,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1565138153}
   - component: {fileID: 1565138152}
-  - component: {fileID: 1565138151}
   - component: {fileID: 1565138150}
   - component: {fileID: 1565138149}
   - component: {fileID: 1565138148}
   - component: {fileID: 1565138147}
+  - component: {fileID: 1565138151}
   m_Layer: 0
   m_Name: PlayerTwo
   m_TagString: Player2
@@ -6985,14 +6986,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1565138146}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce179fd0720634e52980a612d16a8891, type: 3}
+  m_Script: {fileID: 11500000, guid: 6336ba56148234bf4acf244d4a63bc19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dashSpeed: 5000
-  dashCooldown: 3
-  dashLength: 0.5
-  jump: 30
-  playerSpeed: 9
+  left: 97
+  right: 100
+  jump: 119
+  dash: 115
+  block: 101
+  jab: 304
   enemy: {fileID: 1053227042}
   canvas: {fileID: 721930783}
   attackHitboxes:
