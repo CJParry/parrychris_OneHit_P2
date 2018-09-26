@@ -4854,6 +4854,7 @@ MonoBehaviour:
   dash: 305
   block: 307
   jab: 303
+  groundPound: 274
   enemy: {fileID: 1565138146}
   canvas: {fileID: 721930783}
   attackHitboxes:
@@ -6995,6 +6996,7 @@ MonoBehaviour:
   dash: 306
   block: 101
   jab: 304
+  groundPound: 115
   enemy: {fileID: 1053227042}
   canvas: {fileID: 721930783}
   attackHitboxes:

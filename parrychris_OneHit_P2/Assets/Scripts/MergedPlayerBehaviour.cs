@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class MergedPlayerBehaviour : MonoBehaviour
 {
 
-    public KeyCode left, right, jump, dash, block, jab;
+    public KeyCode left, right, jump, dash, block, jab, groundPound;
 
     //Public variables can be set in Unity Inspector
     private int dashSpeed = 5000;
@@ -70,6 +70,11 @@ public class MergedPlayerBehaviour : MonoBehaviour
         if (dashing)
         {
             Dash();
+        }
+
+        // Ground Pound
+        if(Input.GetKey(this.groundPound) && !grounded){
+            GroundPound();
         }
 
         //  Jump
@@ -189,6 +194,11 @@ public class MergedPlayerBehaviour : MonoBehaviour
         {
             grounded = false;
         }
+    }
+
+    private void GroundPound(){
+        rb2d.velocity = new Vector2(
+                rb2d.velocity.x, -jumpSpeed);
     }
 
     // this method will push the player off the other player's head
