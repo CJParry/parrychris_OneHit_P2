@@ -147,6 +147,20 @@ public class MergedPlayerBehaviour : MonoBehaviour
             rb2d.velocity = new Vector2(moveVelocity,
                 rb2d.velocity.y);
         }
+        if(!grounded){//player is in the air and can move left/right at half speed.
+            //move left
+            if (Input.GetKey(this.left) && !shieldUp)
+            {
+                moveVelocity = -playerSpeed;
+            }
+            //move right
+            if (Input.GetKey(this.right) && !shieldUp)
+            {
+                moveVelocity = playerSpeed;
+            }
+            rb2d.velocity = new Vector2(moveVelocity,
+                rb2d.velocity.y);
+        }
         // if(slidingoffhead){
         //     //Move the player by moving iuts Rigidbody component
         //     rb2d.velocity = new Vector2(-5f,0f);
