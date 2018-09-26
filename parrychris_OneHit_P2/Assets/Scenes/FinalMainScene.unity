@@ -4851,7 +4851,7 @@ MonoBehaviour:
   left: 276
   right: 275
   jump: 273
-  dash: 274
+  dash: 305
   block: 307
   jab: 303
   enemy: {fileID: 1565138146}
@@ -6992,7 +6992,7 @@ MonoBehaviour:
   left: 97
   right: 100
   jump: 119
-  dash: 115
+  dash: 306
   block: 101
   jab: 304
   enemy: {fileID: 1053227042}
