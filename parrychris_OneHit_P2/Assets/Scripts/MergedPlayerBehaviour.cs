@@ -147,7 +147,7 @@ public class MergedPlayerBehaviour : MonoBehaviour
             rb2d.velocity = new Vector2(moveVelocity,
                 rb2d.velocity.y);
         }
-        if(!grounded){//player is in the air and can move left/right at half speed.
+        else if(!grounded){//player is in the air and can move left/right at half speed.
             //move left
             if (Input.GetKey(this.left) && !shieldUp)
             {
@@ -277,6 +277,7 @@ public class MergedPlayerBehaviour : MonoBehaviour
             //set isGrounded && isJumping variables in animator to true
             animator.SetBool("isGrounded", true);
             animator.SetBool("isJumping", false);
+            grounded = false;
         }
     }
 
