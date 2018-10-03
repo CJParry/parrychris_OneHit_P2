@@ -30,6 +30,7 @@ public class MergedPlayerBehaviour : MonoBehaviour
     private bool shieldUp = false;
     private bool gameOver = false;
     private bool won = false;
+    private bool groundpounding = false;
 
     private bool slidingoffhead = false;
 
@@ -73,8 +74,8 @@ public class MergedPlayerBehaviour : MonoBehaviour
         }
 
         // Ground Pound
-        if(Input.GetKey(this.groundPound) && !grounded){
-            GroundPound();
+        if(groundpounding){
+            LaunchAttack(attackHitboxes[1]);
         }
 
         //  Jump
@@ -152,7 +153,15 @@ public class MergedPlayerBehaviour : MonoBehaviour
             rb2d.velocity = new Vector2(moveVelocity,
                 rb2d.velocity.y);
         }
-        else if(!grounded){//player is in the air and can move left/right at half speed.
+        else if(!grounded){
+            if (Input.GetKey(this.groundPound) && !grounded)
+            {
+                groundpounding = true;
+                GroundPound();
+            }
+
+
+            //player is in the air and can move left/right at half speed.
             //move left
             if (Input.GetKey(this.left) && !shieldUp)
             {
@@ -179,10 +188,12 @@ public class MergedPlayerBehaviour : MonoBehaviour
         {
             slidingoffhead = false;
             grounded = true;
+            groundpounding = false;
         }
         else if (coll.transform.tag.Contains("Head"))
         {
             grounded = true;
+            groundpounding = false;
             SlideOffHead();
         }
     }
