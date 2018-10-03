@@ -6,14 +6,16 @@ public class PlayerDirections : MonoBehaviour
 {
     public GameObject PlayerOne;
     public GameObject PlayerTwo;
-    private PlayerOneBehaviour P1Script;
-    private PlayerTwoBehaviour P2Script;
+    private MergedPlayerBehaviour P1Script;
+    private MergedPlayerBehaviour P2Script;
 
     // Use this for initialization
     void Start()
     {
-        P1Script = PlayerOne.GetComponent<PlayerOneBehaviour>();
-        P2Script = PlayerTwo.GetComponent<PlayerTwoBehaviour>();
+        P1Script = PlayerOne.GetComponent<MergedPlayerBehaviour>();
+        P2Script = PlayerTwo.GetComponent<MergedPlayerBehaviour>();
+        P2Script.setOnRightSide(false);
+        P1Script.setOnRightSide(true);
     }
 
     // Update is called once per frame
@@ -31,24 +33,25 @@ public class PlayerDirections : MonoBehaviour
         {
             if (position.x < P2Script.transform.position.x)
             {
-                Flip();
+                Flip(false);
             }
         }
         else
         {
             if (position.x >= P2Script.transform.position.x)
             {
-                Flip();
+                Flip(true);
             }
         }
     }
 
-    void Flip()
+    void Flip(bool flip)
     {
         //flip both charcters
         P1Script.transform.Rotate(new Vector3(0, 180, 0));
         P2Script.transform.Rotate(new Vector3(0, 180, 0));
-        P2Script.setOnRightSide();
-        P1Script.setOnRightSide();
+        P2Script.setOnRightSide(!flip);
+        P1Script.setOnRightSide(flip);
+        Debug.Log("Flipping: " + flip);
     }
 }
