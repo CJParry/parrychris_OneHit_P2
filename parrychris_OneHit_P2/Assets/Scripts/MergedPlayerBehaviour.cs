@@ -193,7 +193,6 @@ public class MergedPlayerBehaviour : MonoBehaviour
         else if (coll.transform.tag.Contains("Head"))
         {
             grounded = true;
-            groundpounding = false;
             SlideOffHead();
         }
     }
